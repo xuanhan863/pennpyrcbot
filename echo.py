@@ -28,7 +28,9 @@ def commonsubs(orig):
     return orig
 
 def makeResponse(statement):
-    """Takes a statement from the user and forms a prompt out of it."""
+    """Takes a statement from the user and forms a prompt out of it.
+To add another response, hard increment num_choices and add an if statement at
+the bottom in the same manner as the others."""
     num_choices=5
     select=random.random()
     interval = 1.0/num_choices
