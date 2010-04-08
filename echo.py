@@ -1,6 +1,7 @@
 #!/usr/bin/python
 import sys, re, random, readline
 
+test="hELLLO WORLD"
 punc=",.?'\";:()-!"
 
 def qa(msg, dest=sys.stdout):
