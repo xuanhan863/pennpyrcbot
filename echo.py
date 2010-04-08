@@ -1,6 +1,5 @@
 #!/usr/bin/python
-import sys
-import re
+import sys, re
 import random, readline
 
 punc=",.?'\";:()-!"
