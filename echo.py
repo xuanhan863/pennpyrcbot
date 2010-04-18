@@ -10,7 +10,7 @@ def qa(msg, dest=sys.stdout):
     return raw_input()
     
 def niceSub(orig, repl):
-    """Performs a string substitution maintaing case on first letter."""
+    """Performs a string substitution maintaining case on first letter."""
     if orig[0].islower():
         return repl[0].lower() +repl[1:]
     return repl[0].upper()+repl[1:]
