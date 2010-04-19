@@ -18,3 +18,6 @@ tmp=open("verb.bin","rb")
 verbs=cPickle.load(tmp)
 tmp=open("adverb.bin","rb")
 advs=cPickle.load(tmp)
+
+class POS:
+	noun, verb, adj, adv, null = range(5)

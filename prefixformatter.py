@@ -10,9 +10,13 @@ Command:
 
 import sys
 
-file = open(sys.argv[1], "r")
-outfile = open(sys.argv[2], "w")
-
-for line in file:
-    print line
-    outfile.write(line[0:line.index("-")]+ "\n")
+try:
+    file = open(sys.argv[1], "r")
+    outfile = open(sys.argv[2], "w")
+    
+    for line in file:
+        print line
+        outfile.write(line[0:line.index("-")]+ "\n")
+finally:
+    file.close()
+    outfile.close()

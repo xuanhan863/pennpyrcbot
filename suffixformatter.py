@@ -10,11 +10,14 @@ Command:
 
 import sys
 
-file = open(sys.argv[1], "r")
-outfile = open(sys.argv[2], "w")
+try:
+    file = open(sys.argv[1], "r")
+    outfile = open(sys.argv[2], "w")
 
-for line in file:
-    print line
-    if (line.find("-") == 0):
-        outfile.write(line[1:])
-    
+    for line in file:
+        print line
+        if (line.find("-") == 0):
+            outfile.write(line[1:])
+finally:
+    file.close()
+    outfile.close()
