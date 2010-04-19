@@ -1,20 +1,10 @@
 #!/usr/bin/python
-import os,sys,cPickle
-import random
+import os,sys, cPickle, random
+from Global import nouns, adjs, verbs, advs #import lists of words
 
 #generate random sentences based off of a single structure
 #todo, make something that matches against these
-
 def main(args=None):
-    execfile("writer.py") #make sure binaries exist
-    tmp=open("noun.bin","rb")  #now load the binaries
-    nouns=cPickle.load(tmp)
-    tmp=open("adjective.bin","rb")
-    adjs=cPickle.load(tmp)
-    tmp=open("verb.bin","rb")
-    verbs=cPickle.load(tmp)
-    tmp=open("adverb.bin","rb")
-    advs=cPickle.load(tmp)
     print "Hit enter to generate lines.  Type 'exit' to quit."
     while raw_input() != "exit":
         line="The "
@@ -29,4 +19,3 @@ def main(args=None):
 
 if __name__ =="__main__":
     exit(main())
-    
