@@ -1,8 +1,11 @@
+#so far bare nouns do not work!
+#also everything defaults to noun, so some verbs and adverbs don't work either
+
 from Global import POS
 
 class parser:
     #context-free grammar (simple version)
-    grammar = {"S": [["VP"], ["VP", "NP"]],
+    grammar = {"S": [["#EOV#", "VP"], ["#EOV#", "VP", "#EON#", "NP"]],
                "NP": [[POS.noun, POS.det], [POS.noun], ["NP", POS.adj]],
                "VP": [[POS.verb], ["VP", POS.adv]]
                }
@@ -23,12 +26,10 @@ class parser:
     
 
     #stack metasymbols
-    meta_to_nonterm = {"#EOS#": "S",
-                       "#EON#": "NP",
+    meta_to_nonterm = {"#EON#": "NP",
                        "#EOV#": "VP"
                        }
-    nonterm_to_meta = {"S": "#EOS#",
-                       "NP": "#EON#",
+    nonterm_to_meta = {"NP": "#EON#",
                        "VP": "#EOV"
                        }
 
@@ -46,12 +47,10 @@ class parser:
 
         firstPOS = POS.getPOS(input[0])
         if POS.verb in firstPOS: 
-            stack.append("#EOV#")
             stack.extend(grammar["S"][0])
             output["agent"] = "You"
             output["type"] = "command"
         elif POS.det in firstPOS or POS.noun in firstPOS or POS.adj in firstPOS: 
-            stack.append("#EON#")
             stack.extend(grammar["S"][1])
         else: 
             print "POS of first word:",firstPOS
@@ -67,10 +66,18 @@ class parser:
             elif peek in meta_to_nonterm:
                 nonterm = meta_to_nonterm[peek]
 
-                if nonterm == "NP": output["agent"] = input[startmark: i]
-                elif nonterm == "VP": output["action"] = input[startmark:i]
+                if nonterm == "NP": 
+                    if i-startmark > 1: output["agent"] = " ".join(input[startmark:i])       
+                    else: output["agent"] = input[startmark:i][0]
+                elif nonterm == "VP": 
+                    if i-startmark > 1: output["action"] = " ".join(input[startmark:i])
+                    else: output["action"] = input[startmark:i][0]
                 else: output["type"] = punc_map[input[i]]
                 startmark = i
+            
+            elif word in punc_map:
+                output["type"] = punc_map[word]
+                return output
 
             else:
                 try: 
@@ -79,10 +86,10 @@ class parser:
                     print "Word we just failed on: '%s'."%(word,)
                     exit(1)
                 if production[0] == peek: 
-                    stack.append(nonterm_to_meta[peek])
                     stack.extend(production[1])
+                    print stack
                 else: 
                     print "Word is '%s', peek is '%s', pos is '%s'."%(word,peek,pos)
                     print "Production is '%s'"%(production,)
                     return {}
-        return output
+        
