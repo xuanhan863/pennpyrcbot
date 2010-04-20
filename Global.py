@@ -18,9 +18,11 @@ tmp=open("verb.bin","rb")
 verbs=cPickle.load(tmp)
 tmp=open("adverb.bin","rb")
 advs=cPickle.load(tmp)
+tmp=open("determiners.bin","rb")
+dets=cPickle.load(tmp)
 
 class POS:
-	noun, verb, adj, adv, null = range(5)
+	noun, verb, adj, adv, det, null = range(6)
 	def getPOSFromFiles(word):#shouldn't be needed outside of this code
 		ret = set()
 		if word in nouns:
@@ -31,6 +33,8 @@ class POS:
 			ret.add(POS.adj)
 		if word in advs:
 			ret.add(POS.adv)
+		if word in dets:
+			ret.add(POS.det)
 		if len(ret) == 0:
 			ret.add(POS.null)
 		return ret
@@ -45,6 +49,8 @@ if not os.path.exists("posmap.bin"):
 	for word in verbs:
 		POSMap[word] = getPOSFromFiles(word)
 	for word in advs:
+		POSMap[word] = getPOSFromFiles(word)
+	for word in dets:
 		POSMap[word] = getPOSFromFiles(word)
 	dest=open("posmap.bin","wb")
 	cPickle.dump(POSMap,dest,protocol=2)
