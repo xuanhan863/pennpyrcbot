@@ -1,5 +1,41 @@
 import os, sys, cPickle
 
+def lookup(str):
+	"""Returns a Word object for the given string.  This is the interface
+that should be used to "lookup" a word in the bot's knowledge base."""
+	return Word(str)
+
+class Word:
+	POS=POS.null;
+	def __init__(self, str):
+		self.val=str
+	pass
+class Noun(Word):
+	POS=POS.noun
+	def __init__(self,str):
+		Word.__init__(self.str)
+	pass
+class Adj(Word):
+	POS=POS.adj
+	def __init__(self,str):
+		Word.__init__(self.str)
+	pass
+class Adv(Word):
+	POS=POS.adv
+	def __init__(self,str):
+		Word.__init__(self.str)
+	pass
+class Verb(Word):
+	POS=POS.verb
+	def __init__(self,str):
+		Word.__init__(self.str)
+	pass
+class Det(Word):
+	POS=POS.det
+	def __init__(self,str):
+		Word.__init__(self.str)
+	pass
+
 for fname in os.listdir("."): #first, create the binaries/verify presence
         if fname[-4:]==".dat":
             if not os.path.exists(fname[:-3]+"bin"):
@@ -25,13 +61,12 @@ class POS:
 	noun, verb, adj, adv, det, null = range(6)
 	@staticmethod
 	def getPOSFromFiles(word):#shouldn't be needed outside of this code
-		ret = set()
 		if word in nouns:
-			ret.add(POS.noun)
+			return POS.noun
 		if word in verbs:
-			ret.add(POS.verb)
+			return POS.verb
 		if word in adjs:
-			ret.add(POS.adj)
+			
 		if word in advs:
 			ret.add(POS.adv)
 		if word in dets:
