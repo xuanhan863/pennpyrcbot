@@ -23,6 +23,7 @@ dets=cPickle.load(tmp)
 
 class POS:
 	noun, verb, adj, adv, det, null = range(6)
+	@staticmethod
 	def getPOSFromFiles(word):#shouldn't be needed outside of this code
 		ret = set()
 		if word in nouns:
@@ -37,7 +38,21 @@ class POS:
 			ret.add(POS.det)
 		if len(ret) == 0:
 			ret.add(POS.null)
-		return ret
+		return tuple(ret)
+	@staticmethod
+	def getPOS(word):
+		global POSMap
+		try:
+			return POSMap[word]
+		except KeyError:
+			pass
+		if word[-1]=="s":
+			try:
+				return POSMap[word[:-1]]
+			except KeyError:
+				pass
+		return (POS.null,)
+
 
 ###########build our map of words -> set of POS
 if not os.path.exists("posmap.bin"):
@@ -47,11 +62,11 @@ if not os.path.exists("posmap.bin"):
 	for word in adjs:
 		POSMap[word] = POS.getPOSFromFiles(word)
 	for word in verbs:
-		POSMap[word] = getPOSFromFiles(word)
+		POSMap[word] = POS.getPOSFromFiles(word)
 	for word in advs:
-		POSMap[word] = getPOSFromFiles(word)
+		POSMap[word] = POS.getPOSFromFiles(word)
 	for word in dets:
-		POSMap[word] = getPOSFromFiles(word)
+		POSMap[word] = POS.getPOSFromFiles(word)
 	dest=open("posmap.bin","wb")
 	cPickle.dump(POSMap,dest,protocol=2)
 	dest.close()
@@ -60,14 +75,3 @@ else:
 	POSMap=cPickle.load(source)
 	source.close()
 #####dict is built
-def getPOS(word):
-    try:
-        return POSMap[word]
-    except KeyError:
-        pass
-    if word[-1]=="s":
-        try:
-            return POSMap[word[:-1]]
-        except KeyError:
-            pass
-    return set([POS.null])
