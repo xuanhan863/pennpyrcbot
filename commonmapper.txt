@@ -1,0 +1,4 @@
+meat,beef,chicken,pork
+veg,broccoli,carrot,lettuce
+fruit,apple,banana,orange
+dairy,milk,cheese,yogourt
