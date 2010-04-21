@@ -1,5 +1,10 @@
 import defs, Global, thematic_roles
 
+lookup = Global.lookup
+agent = thematic_roles.agent
+action = thematic_roles.action
+theme = thematic_roles.theme
+POS = Global.POS
 punc_map = {".": "statement",
             "!": "emphatic",
             "?": "query"
@@ -15,7 +20,7 @@ def parse(str):
 
         if substr in punc_map:
             output["theme"] = theme(buffer)
-            output["type"] = punc_map(substr)
+            output["type"] = punc_map[substr]
             return output
 
         word = lookup(substr)

@@ -1,5 +1,6 @@
 import defs, Global
 
+POS = Global.POS
 null = "_none_"
 
 class agent:
