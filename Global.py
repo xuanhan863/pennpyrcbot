@@ -19,9 +19,14 @@ def lookup(str):
 	except KeyError:
 		pass
 	if str[-1] == "s":
-		return words[str[:-1]]
+		try:
+			return words[str[:-1]]
+		except KeyError:
+			return words[str[:-2]]
 	if str[-2:] == "ed":
 		try:
 			return words[str[:-1]]
 		except KeyError:
 			return words[str[:-2]]
+	if str[-2:] == "ly":
+		return words[str[:-2]]
