@@ -15,14 +15,20 @@ class agent:
 
     def __str__(self):        
         s = "Agent: \n"
-        s += ("Determiner: " + self.det.val + "\n")
-
-        desc_strs = []
-        for desc in self.descriptors: desc_strs.append(desc.val)
-        s += ("Descriptors: " + ", ".join(desc_strs) + "\n")
         
-        s += ("Core: " + self.core.val)
+        if self.det == null: s += "Determiner: none given\n"
+        else: s += ("Determiner: " + self.det.val + "\n")
+
+        if len(self.descriptors) == 0: s += "Descriptors: none given\n"
+        else:
+            desc_strs = []
+            for desc in self.descriptors: desc_strs.append(desc.val)
+            s += ("Descriptors: " + ", ".join(desc_strs) + "\n")
+        
+        if self.core == null: s += "Core: none given"
+        else: s += ("Core: " + self.core.val)
         return s
+
     def __repr__(self):
         return str(self)
 
@@ -39,11 +45,14 @@ class action:
     def __str__(self):
         s = "Action: \n"
 
-        desc_strs = []
-        for desc in self.descriptors: desc_strs.append(desc.val)
-        s += ("Descriptors: " + ", ".join(desc_strs) + "\n")
-        
-        s += ("Core: " + self.core.val)
+        if len(self.descriptors) == 0: s += "Descriptors: none given\n"
+        else:
+            desc_strs = []
+            for desc in self.descriptors: desc_strs.append(desc.val)
+            s += ("Descriptors: " + ", ".join(desc_strs) + "\n")
+
+        if self.core == null: s += "Core: none given"
+        else: s += ("Core: " + self.core.val)
         return s
 
     def __repr__(self):
@@ -82,13 +91,17 @@ class theme:
         s = "Theme: \n"
 
         if self.isnp:
-            s += ("Determiner: " + self.det.val + "\n")
+            if self.det == null: s += "Determiner: none given"
+            else: s += ("Determiner: " + self.det.val + "\n")
 
-            desc_strs = []
-            for desc in self.descriptors: desc_strs.append(desc.val)
-            s += ("Descriptors: " + ", ".join(desc_strs) + "\n")
-        
-            s += ("Core: " + self.core.val)
+            if len(self.descriptors) == 0: s += "Descriptors: none given\n"
+            else:
+                desc_strs = []
+                for desc in self.descriptors: desc_strs.append(desc.val)
+                s += ("Descriptors: " + ", ".join(desc_strs) + "\n")
+            
+            if self.core == null: s += "Core: none given"
+            else: s += ("Core: " + self.core.val)
             return s
 
         else:
