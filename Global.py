@@ -14,4 +14,14 @@ words=defs.loadFile("masterwordtable.bin")
 #cats = defs.loadFile("cat.bin") for later
 def lookup(str):
 	"""Returns a Word object for the given string.  This is the interface that should be used to "lookup" a word in the bot's knowledge base."""
-	return words[str]
+	try:
+		return words[str]
+	except KeyError:
+		pass
+	if str[-1] == "s":
+		return words[str[:-1]]
+	if str[-2:] == "ed":
+		try:
+			return words[str[:-1]]
+		except KeyError:
+			return words[str[:-2]]
