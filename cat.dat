@@ -1,6 +1,5 @@
-null
 food null action:eat:drink:cook:prepare agent:water:bread:rice:noodle desc:tasty:edible:disgusting:expensive
 meat food action:roast:fry:broil:dice agent:beef:chicken:pork:lamb desc:salty:stiff:raw:dry
 veg food action:chop:grow:wash:slice agent:lettuce:broccoli:carrot:onion desc:healthy:rotten:crisp:fresh
 fruit food action:peel:pick:cut:blend agent:apple:banana:watermelon:pear desc:sweet:sour:juicy:fresh
-dairy food action:ferment:heat:refrigerate agent:milk:cheese:yogourt:butter desc:sour:moldy:sticky
+dairy food action:ferment:heat:refrigerate agent:milk:cheese:yogurt:butter desc:sour:moldy:sticky
