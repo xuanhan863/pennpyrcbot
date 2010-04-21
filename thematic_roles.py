@@ -110,8 +110,8 @@ class theme:
             s += ("Core: " + ", ".join(core_strs))
             return s
         
-        def __repr__(self):
-            return str(self)
+    def __repr__(self):
+        return str(self)
 
             
     
