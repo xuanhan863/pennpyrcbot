@@ -23,6 +23,8 @@ class agent:
         
         s += ("Core: " + self.core.val)
         return s
+    def __repr__(self):
+        return str(self)
 
 
 class action:
@@ -42,7 +44,11 @@ class action:
         s += ("Descriptors: " + ", ".join(desc_strs) + "\n")
         
         s += ("Core: " + self.core.val)
-        returns
+        return s
+
+    def __repr__(self):
+        return str(self)
+
 
 #always check whether a theme's isnp field is true or not!
 #need to treat it differently depending!
@@ -90,7 +96,9 @@ class theme:
             for core in self.core: core_strs.append(core.val)
             s += ("Core: " + ", ".join(core_strs))
             return s
-                
+        
+        def __repr__(self):
+            return str(self)
 
             
     
