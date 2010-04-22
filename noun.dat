@@ -1026,7 +1026,6 @@ breath
 brick
 bridge
 brother
-brothers
 brush
 bubble
 bucket
@@ -1035,7 +1034,7 @@ bulb
 bun
 burn
 burst
-bushes
+bush
 business
 button
 cable
@@ -1056,10 +1055,9 @@ card
 care
 carpenter
 carriage
-cars
 cart
 cast
-cats
+cat
 cause
 cave
 cellar
@@ -1072,19 +1070,17 @@ chalk
 chance
 change
 channel
-cherries
+cherry
 chess
-chickens
+chicken
 children
 chin
 church
 circle
 class
 clock
-clocks
 cloth
 cloud
-clouds
 clover
 club
 coach
@@ -1113,7 +1109,6 @@ cough
 country
 cover
 cow
-cows
 crack
 cracker
 crate
@@ -1126,7 +1121,6 @@ crime
 crook
 crowd
 crown
-crush
 cry
 cub
 cup
@@ -1150,7 +1144,7 @@ development
 digestion
 dime
 dinner
-dinosaurs
+dinosaur
 direction
 dirt
 discovery
@@ -1162,9 +1156,8 @@ distribution
 division
 dock
 doctor
-dogs
+dog
 doll
-dolls
 door
 downtown
 drain
@@ -1175,7 +1168,7 @@ driving
 drop
 drug
 drum
-ducks
+duck
 dust
 ear
 earth
@@ -1201,7 +1194,7 @@ eye
 eyes
 face
 fact
-fairies
+fairy
 fall
 family
 fan
@@ -1230,7 +1223,6 @@ flight
 flock
 floor
 flower
-flowers
 fly
 fog
 fold
@@ -1242,8 +1234,7 @@ fowl
 frame
 friction
 friend
-friends
-frogs
+frog
 front
 fruit
 fuel
@@ -1254,9 +1245,8 @@ garden
 gate
 geese
 ghost
-giants
+giant
 girl
-girls
 glass
 glove
 glue
@@ -1281,7 +1271,7 @@ hair
 haircut
 hall
 hammer
-hands
+hand
 harbor
 harmony
 hat
@@ -1294,7 +1284,7 @@ help
 hen
 hill
 history
-hobbies
+hobby
 hole
 holiday
 home
@@ -1307,7 +1297,6 @@ hose
 hospital
 hour
 house
-houses
 humor
 hydrant
 ice
@@ -1343,7 +1332,6 @@ kick
 kiss
 kite
 kitten
-kittens
 kitty
 knee
 knife
@@ -1362,9 +1350,7 @@ lead
 learning
 leather
 leg
-legs
 letter
-letters
 level
 library
 lift
@@ -1375,7 +1361,7 @@ linen
 lip
 liquid
 list
-lizards
+lizard
 loaf
 lock
 locket
@@ -1399,7 +1385,6 @@ mask
 mass
 match
 meal
-measure
 meeting
 memory
 men
@@ -1450,7 +1435,7 @@ office
 oil
 operation
 opinion
-oranges
+orange
 order
 organization
 ornament
@@ -1484,16 +1469,14 @@ pets
 pickle
 picture
 pie
-pies
-pigs
+pig
 pin
 pipe
-pizzas
+pizza
 place
 plane
-planes
 plantation
-plants
+plant
 plastic
 plate
 play
@@ -1505,7 +1488,6 @@ pocket
 point
 poison
 police
-polish
 pollution
 popcorn
 porter
@@ -1535,7 +1517,7 @@ quicksand
 quill
 quilt
 quiver
-rabbits
+rabbit
 rail
 railway
 rain
@@ -1580,7 +1562,7 @@ rule
 run
 sack
 sail
-salt
+salt spice
 sand
 scale
 scarecrow
@@ -1610,7 +1592,6 @@ ship
 shirt
 shock
 shoe
-shoes
 shop
 show
 side
@@ -1620,7 +1601,6 @@ silk
 silver
 sink
 sister
-sisters
 size
 skate
 skin
@@ -1635,8 +1615,8 @@ smash
 smell
 smile
 smoke
-snails
-snakes
+snail
+snake
 sneeze
 snow
 soap
@@ -1646,14 +1626,13 @@ soda
 sofa
 son
 song
-songs
 sort
 sound
 soup
 space
 spade
 spark
-spiders
+spider
 sponge
 spoon
 spot
@@ -1717,7 +1696,6 @@ test
 texture
 theory
 thing
-things
 thought
 thread
 thrill
@@ -1730,8 +1708,6 @@ time
 tin
 title
 toe
-toes
-tomatoes
 tooth
 toothbrush
 toothpaste
@@ -1739,23 +1715,19 @@ top
 touch
 town
 toy
-toys
 trade
 trail
 train
-trains
 tramp
 transport
 tray
 treatment
 tree
-trees
 trick
 trip
 trouble
 trousers
 truck
-trucks
 tub
 turn
 twig
@@ -1764,7 +1736,6 @@ umbrella
 uncle
 underwear
 unit
-use
 vacation
 value
 van
@@ -1827,3 +1798,129 @@ zephyr
 zinc
 zipper
 zoo
+ajwain spice
+akudjura spice
+alexanders spice
+alkanet spice
+allspice spice
+anardana spice
+angelica spice
+anise spice
+annatto spice
+apple spice
+asafoetida spice
+asarabacca spice
+barberry spice
+basil spice
+bay spice
+bergamot spice
+boldo spice
+borage spice
+calendula spice
+capers spice
+caraway spice
+cardamom spice
+carob spice
+catnip spice
+cassia spice
+cayenne spice
+celery spice
+chervil spice
+chicory spice
+chili spice
+chipotle spice
+charoli spice
+chives spice
+cicely spice
+cilantro spice
+cinnamon spice
+clary spice
+clove spice
+coriander spice
+costmary spice
+cubeb spice
+cudweed spice
+culantro spice
+cumin spice
+curry spice
+dill spice
+elderflower spice
+epazote spice
+fennel spice
+fenugreek spice
+filé spice
+fingerroot spice
+galangal spice
+galingale spice
+gambooge spice
+garlic spice
+ginger spice
+golpar spice
+hops spice
+horseradish spice
+houttuynia spice
+huacatay spice
+hyssop spice
+jasmine spice
+jimbu spice
+kencur spice
+kepayang spice
+kokam spice
+korarima spice
+koseret spice
+lavender spice
+lemongrass spice
+liquorice spice
+lovage spice
+mace spice
+mahlab spice
+malabathrum spice
+marjoram spice
+mastic spice
+mesquite spice
+mint spice
+mustard spice
+nasturtium spice
+nigella spice
+njangsa spice
+nutmeg spice
+olida spice
+oregano spice
+pandan spice
+paprika spice
+paracress spice
+parsley spice
+pepper spice
+peppermint spice
+perilla spice
+poppy spice
+quassia spice
+ramsons spice
+rosemary spice
+rue spice
+safflower spice
+saffron spice
+sage spice
+salep spice
+sassafras spice
+savory spice
+sesame spice
+silphium spice
+sorrel spice
+spearmint spice
+spikenard spice
+sumac spice
+sweet spice
+tarragon spice
+thyme spice
+turmeric spice
+vanilla spice
+wasabi spice
+water-pepper spice
+watercress spice
+wattleseed spice
+wintergreen spice
+woodruff spice
+wormwood spice
+yerba spice
+zedoary spice

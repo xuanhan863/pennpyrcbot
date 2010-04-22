@@ -3,3 +3,4 @@ meat food action:roast:fry:broil:dice agent:beef:chicken:pork:lamb desc:salty:st
 veg food action:chop:grow:wash:slice agent:lettuce:broccoli:carrot:onion desc:healthy:rotten:crisp:fresh
 fruit food action:peel:pick:cut:blend agent:apple:banana:watermelon:pear desc:sweet:sour:juicy:fresh
 dairy food action:ferment:heat:refrigerate agent:milk:cheese:yogurt:butter desc:sour:moldy:sticky
+spice food action:grind:crush:sprinkle:measure agent:pepper:salt:vanilla:cinnamon:paprika desc:aromatic:strong:tasty:bitter
