@@ -1,3 +1,11 @@
+#A bunch of classes to represent sentences and their components
+#Statements, Questions, Agents, Actions, Predicates, and the various _P's are classes; dets, descriptors, and cores are Word objects; attributes like types and queries are plain strings
+
+#These classes build up on each other (from the bottom of the file up to the top), just as the CFG builds up.  This makes it easier to pass objects around while parsing.
+
+#There is definitely some inefficiency here, as most of the classes just copy the fields of others when they are initialized.  I structured the classes this way to make parsing easier.  It's not a perfect solution, but I needed to be able to pass semantic classes around and build them up bit by bit.
+
+
 #--------------------
 #sentence types
 #--------------------
@@ -16,7 +24,7 @@ class Statement(Sentence):
     def __init__(self, agent, action, predicate):
         Sentence.__init__(self, agent, action, predicate)
 
-#query (a plain string) can be either tf (true or false), or a wh-word
+#The query (a plain string) can be either tf (true or false), or a wh-word
 class Question(Sentence):
     type = "question"
     def __init__(self, agent, action, predicate, query):
@@ -26,8 +34,6 @@ class Question(Sentence):
 #--------------------
 #thematic roles
 #--------------------
-
-#thematic roles store Word objects
 
 class Agent:
     def __init__(self, dp):
@@ -40,8 +46,7 @@ class Agent:
     def __repr__(self): 
         return str(self)
             
-#a VP has a predicate field, but an Action does not!
-#the VP's predicate will be separately stored in the sentence                
+#A VPrime has a predicate field, but an Action does not!; the VPrime's predicate will be separately stored in the sentence.               
 class Action:
     def __init__(self, vprime):        
         self.descriptor, self.core = vprime.descriptor, vprime.core
@@ -52,8 +57,8 @@ class Action:
     def __repr__(self):
         return str(self)
 
-#make sure to check with a predicate for its type before you use it!
-#the 3 types are theme, infinitive, and linked (plain string)
+#Make sure to check with a predicate for its type before you use it!  The 3 types are theme, infinitive, and linked (plain string).
+#The Predicate class is used by both Sentences and VPrimes.
 class Predicate:
     def __init__(self, type, arg): 
         self.type = type
@@ -96,6 +101,8 @@ class DP:
     def __repr__(self): 
         return str(self)
 
+#The separation of verb phrases into vnaught, vp, and vprime is meant to make parsing easier.
+
 class VNaught:
     def __init__(self, core):
         self.core = core
@@ -114,7 +121,7 @@ class VP:
     def __repr__(self):
         return str(self)
 
-#note that VPrimes have a Predicate object, in keeping with the grammar
+#Note that VPrimes have a Predicate object, which is in keeping with the grammar.  The predicate will be extracted at the Action level.
 class VPrime:
     def __init__(self, vp, pred):
         self.descriptor, self.core, self.predicate = vp.descriptor, vp.core, pred

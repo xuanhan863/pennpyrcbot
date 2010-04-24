@@ -3,11 +3,15 @@ from  Global import *
 from Types import *
 from semantics import *
 
+#--------------------
+#lexer definitions
+#--------------------
+
 tokens = (
-    'TO',
-    'WH',
-    'AUX',
-    'COP',
+    'TO', #for infinitives
+    'WH', #wh question words
+    'AUX', #auxiliary verbs not including forms of "to be"
+    'COP', #the copula "to be"
     'DET',
     'NOUN',
     'ADJ',
@@ -69,7 +73,7 @@ def t_error(t):
 lexer = lex.lex()
 
 #--------------------
-#lexer testing
+#lexer testing --->this part already works!<---
 #--------------------
 
 #lexer.input("@det_a @adj_happy @noun_cook @adv_rapidly @verb_sliced @det_the @noun_radishes .")
@@ -78,6 +82,19 @@ lexer = lex.lex()
 #    if not token: break
 #    print token.type, token.value
 
+
+#--------------------
+#parser definitions
+#--------------------
+
+#These consist of assigning to p[0], which represents the nonterminal on the left, a value generated from the values of the terminals and nonterminals on the right (p[1]...p[n]).  The value of a terminal is just the string representing its word (not a Word object yet!); the value of a nonterminal should be a semantic class object with the same name as the nonterminal symbol. 
+
+#See grammar.txt for an easier to read version of the grammar (note that in grammar.txt nonterminals are capitalized and terminals are not, whereas here nonterminals are all lowercase and terminals are allcaps).
+
+#See semantics.py for definitions of the classes I keep assigning to p[0]'s.
+
+#Hopefully I remembered to call lookup() whenever I create semantic class objects from terminals.
+
 def p_sentence(p):
     '''sentence : statement '.'
                 | question '?' '''
@@ -85,6 +102,7 @@ def p_sentence(p):
 
 def p_statement(p):
     'statement: dp vprime'
+    # ^p[0]     ^p[1] ^p[2]
     p[0] = Statement(Agent(p[1]), Action(p[2]), p[2].predicate)
 
 def p_question(p):
@@ -93,7 +111,7 @@ def p_question(p):
                 | WH COP dp predp'''
     if len(p) == 4: p[0] = Question(Agent(p[2]), Action(p[3]), p[3].predicate, "tf")
     elif lookup(p[2]).POS == POS.aux: p[0] = Question(Agent(p[3]), Action(p[4]), p[4].predicate, p[1])
-    else: p[0] = Question(Agent(p[3]), Action(VP(None, True, lookup(p[2]), p[4])), p[4], p[1])
+    else: p[0] = Question(Agent(p[3]), Action(VPrime(VP(None, VNaught(lookup(p[2])), p[4])), p[4], p[1])
 
 def p_dp(p):
     '''dp : DET np
