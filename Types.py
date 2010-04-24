@@ -1,5 +1,5 @@
 class POS:
-        noun, verb, adj, adv, det, null = range(6)
+        noun, verb, adj, adv, det, wh, aux, cop, null = range(7)
 
 parse_tag_symbol = "@"
 class Word:
@@ -17,29 +17,48 @@ class Word:
 		return "%s(%s,%s)"%(self.__class__.__name__,self.val,self.cat)
 class Noun(Word):
         POS=POS.noun
-	parse_tag = parse_tag_symbol + "noun"
+	parse_tag = parse_tag_symbol + "noun_"
         def __init__(self,str,category):
                 Word.__init__(self,str,category)
 class Adj(Word):
         POS=POS.adj
-	parse_tag = parse_tag_symbol + "adj"
+	parse_tag = parse_tag_symbol + "adj_"
         def __init__(self,str, category):
                 Word.__init__(self,str,category)
 class Adv(Word):
         POS=POS.adv
-	parse_tag = parse_tag_symbol + "adv"
+	parse_tag = parse_tag_symbol + "adv_"
         def __init__(self,str,category):
                 Word.__init__(self,str,category)
 class Verb(Word):
         POS=POS.verb
-	parse_tag = parse_tag_symbol + "vrb"
+	parse_tag = parse_tag_symbol + "verb_"
         def __init__(self,str,category):
                 Word.__init__(self,str,category)
 class Det(Word):
         POS=POS.det
-	parse_tag = parse_tag_symbol + "det"
+	parse_tag = parse_tag_symbol + "det_"
         def __init__(self,str,category):
                 Word.__init__(self,str,category)
+
+class Aux(Word):
+	POS=POS.aux
+	parse_tag = parse_tag_symbol + "aux_"
+	def __init__(self,str,category):
+                Word.__init__(self,str,category)
+
+class Cop(Word):
+	POS=POS.cop
+	parse_tag = parse_tag_symbol + "cop_"
+	def __init__(self,str,category):
+                Word.__init__(self,str,category)
+
+class Wh(Word):
+	POS = POS.wh
+	parse_tag = parse_tag_symbol + "wh_"
+	def __init__(self, str, category):
+		Word.__init__(self, str, category)
+	
 
 class Category:
         """Defines an object representing a category of words.  Included are a parent category and lists of common agents, actions, and descriptors associated with this category."""
