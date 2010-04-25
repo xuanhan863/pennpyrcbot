@@ -1,9 +1,17 @@
 #!/usr/bin/python
 
 """
-Input Format:
-for word = var
+About:
+This script takes apart the output of the harness program specified in a specific format as specified below. The following data structures are used:
 
+theme(tMap): part -> word (ie. core -> radish)
+agent(aMap): part -> word (ie. core -> boy)
+
+It then takes the map and retreives common topics associated with that agent/theme.
+
+Finally, through a probabilistic approach, it returns a response.
+
+Input Format:
 type:word theme:word@thm:word@det:word@des:word@cor agent:word@agt:word@det:word@des:word@cor
 """
 import sys, re, categorizer, random
@@ -13,10 +21,10 @@ def main(args=None):
     theme = {}
     agent = {}
     type = ""
-    input2 = "type:word theme:word@thm:word@det:word@des:word@cor agent:word@agt:word@det:word@des:word@cor"
 
+    #to be adjusted to read from output of another class/script
     #sample input is currently rotten carrots
-    input = "type:statement theme:veg@thm:the@det:rotten@des:carrot@cor agent:carrot@agt:the@det:rotten@des:carrot@cor"
+    input = "type:statement theme:veg@thm:the@det:cut@des:carrot@cor agent:carrot@agt:the@det:awesome@des:boy@cor"
 
     #sectionList breakdown
     #type[]
@@ -42,19 +50,35 @@ def main(args=None):
             agent = currentDict
 
     #generate response
-    print genResponse(type, theme, agent)
+    print genResponse(type, theme, agent, original)
 
 #generates response from word:POS using category
 def genResponse(type, tMap, aMap):
+    #type has yet to be used
+
     #find alternate common topic for each through rgen
     #reminder: commons is a list [action, agent, descriptor]
     commons = getCommons(tMap["thm"])
-
+    original =  [tMap["des"],tMap["cor"],
     #construct sentence
     #yet to implement probabilistic approach to choosing answers
     #goodbye func can be called at a low probability
-    return question(commons)
+    choice = random.randInt(0, 100)
+    
+    if choice == 0:
+        return goodbye()
+    elif choice < 11:
+        return generalize(commons)
+    elif choice < 21:
+        return comment(commons)
+    elif choice < 31:
+        return question(commons)
+    elif choice < 41:
+        return imperative(commons)
+    else:
+        return "\"There are 10 kinds of people in this world, those who understand binary, and those who don't\""
 
+#returns a list of length 3 @action,@agent,@desc
 def getCommons(theme):
     catFile = open("cat.dat", "r")
     ret = ["@action", "@agent", "@desc"]
@@ -71,10 +95,10 @@ def getCommons(theme):
     return None
 
 def question(commons):
-    print "Would you do the same with " + commons[2] + " " + commons[1] + "?"
+    print "How about " + commons[2] + " " + commons[1] + "?"
 
 def comment(commons):
-    pass
+    print "I like " + commons[2] + " " + commons[1] " more."
 
 def imperative(commons):
     pass
