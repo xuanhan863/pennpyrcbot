@@ -108,7 +108,7 @@ def getCommons(theme):
     return None
 
 def question(commons,original,var):
-    if var == 0 and original[2] is not "like":
+    if var == 0 and original[2] is not "like" and original[2] is not "likes":
         if original[2][-1] == "e":
             return "Why do you like " + original[2][:-1] + "ing " + original[1] + "?"
         elif original[2][-2:] == "es":
