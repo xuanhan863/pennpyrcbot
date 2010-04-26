@@ -20,6 +20,7 @@ while feed != "exit":
  #       try:
             res=do(feed)
             cat = "null"
+            theme_cor=blank
             try:
                 verbInd=feed.index(res['action'].core.val)
                 end = feed[len(res['action'].core.val):]
@@ -27,6 +28,9 @@ while feed != "exit":
                     try:
                         cattry=Global.lookup(word)
                         cat=cattry.cat
+                        theme_cor = word
+                        if cat !="null" and cat != "": #if we found one
+                            break
                     except Exception:
                         pass
             except KeyError:
@@ -38,14 +42,15 @@ while feed != "exit":
                 toRes+=":%s@det"%(theme.det,)
             for desc in theme.descriptors:
                 toRes+=":%s@des"%(desc.val,)
-            if theme.core != blank:
-                try:
-                    toRes+=":%s@cor"%(theme.core.val,)
-                except AttributeError:
-                    try:
-                        toRes+=":%s@cor"%(theme.core[0].val,)
-                    except IndexError:
-                        pass
+            toRes+=":%s@cor"%(theme_cor,)
+#            if theme.core != blank:
+ #            try:
+#                    toRes+=":%s@cor"%(theme.core.val,)
+  #              except AttributeError:
+   #                 try:
+      #                  toRes+=":%s@cor"%(theme.core[0].val,)
+    #                except IndexError:
+     #                   pass
             toRes+=" agent"
             agent=res['agent']
             if agent.det != blank:
