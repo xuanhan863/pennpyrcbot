@@ -48,8 +48,8 @@ def getResponse(feed):
             toRes+=":%s@det"%(theme.det,)
         for desc in theme.descriptors:
             toRes+=":%s@des"%(desc.val,)
-            toRes+=":%s@cor"%(theme_cor,)
-            toRes+=" agent"
+        toRes+=":%s@cor"%(theme_cor,)
+        toRes+=" agent"
         agent=res['agent']
         if agent.det != blank:
             try:
