@@ -130,7 +130,7 @@ def comment(commons,original,var):
 
 def imperative(commons,original,var):
     if var == 0:
-        return "You should not think that way."
+        return "There's no reason to say that"
     elif var == 1:
         return "There is nothing cooler than that."
     elif var == 2:
@@ -146,13 +146,13 @@ def generalize(commons,original,var):
     if var == 0:
         return "What type of thing is " + original[1] + "?"
     elif var == 1:
-        return "What's something related to " + original[1] + "?"
+        return "What else is related to the " + original[1] + "?"
     elif var == 2:
         return "Where is this conversation going if we keep talking about " + original[1] + "?"
     elif var == 3:
         return "How is the " + original[1] + " relevant at all?"
     elif var == 4:
-        return "Why are you being so specific?"
+        return "That's too specific. What else?"
     else:
         return "Can't it be something else?"
 
