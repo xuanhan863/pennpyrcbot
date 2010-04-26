@@ -12,14 +12,15 @@ It then takes the map and retreives common topics associated with that agent/the
 Finally, through a probabilistic approach, it returns a response.
 
 Input Format:
-type:word theme:word@thm:word@det:word@des:word@cor agent:word@agt:word@det:word@des:word@cor
+type:word theme:word@thm:word@det:word@des:word@cor agent:word@agt:word@det:word@des:word@cor action:word@act:word@des:word@cor
 """
-import sys, re, categorizer, random
+import sys, re, categorizer, random, epi
 
 def main(args=None):
     #makes maps
     theme = {}
     agent = {}
+    action = {}
     type = ""
 
     #to be adjusted to read from output of another class/script
@@ -28,44 +29,43 @@ def main(args=None):
     for line in file:
         input = line
 
-    #sectionList breakdown
-    #type[]
-    #theme[]
-    #agent[]
         sectionList = input.split(" ")
         for group in sectionList:
             currentDict = {}
             groupList=group.split(":")
             if groupList[0] == "type":
                 type = groupList[1]
-            elif groupList[0] == "theme" or groupList[0] == "agent":
+            elif groupList[0] == "theme" or groupList[0] == "agent" or groupList[0] == "action":
                 for element in groupList[1:]:
                     pair = element.split("@")
-                    currentDict[pair[1]] = pair[0]
+                    currentDict[pair[1].strip()] = pair[0].strip()
             else:
                 print "Input format not recognized"
-
+            print currentDict
             if groupList[0] == "theme":
                 theme = currentDict
             elif groupList[0] == "agent":
                 agent = currentDict
+            elif groupList[0] == "action":
+                action = currentDict
     #generate response
-        print genResponse(type, theme, agent)
+        print genResponse(type, theme, agent, action)
 
 #generates response from word:POS using category
-def genResponse(type, tMap, aMap):
+def genResponse(type, tMap, aMap, actMap):
     #type has yet to be used
 
     #find alternate common topic for each through rgen
     #reminder: commons is a list [action, agent, descriptor]
     commons = getCommons(tMap["thm"])
 
-    #original eg.cut, carrot, salty
-    original =  [tMap["des"],tMap["cor"], aMap["des"]]
+    #original eg.cut, carrot, man, salty, very, like
+    original =  [tMap["des"],tMap["cor"], aMap["cor"], aMap["des"], actMap["des"], actMap["cor"]]
 
     #choose type of sentence to construct
-    choice = random.randint(20, 30)
-    var = random.randint(0,4)
+    choice = random.randint(0, 50)
+    var = random.randint(0,5)
+
     if choice == 0:
         return goodbye()
     elif choice < 11:
@@ -104,13 +104,15 @@ def question(commons,original,var):
         print "I know you like " + original[1] + ", but can you tell me more?"
     elif var == 3:
         print "Do you have something else to say about " + original[1] + "?"
-    else:
+    elif var == 4:
         print "Ok...and?"
+    else:
+        print "Have you checked " + epi.getFoodLink(original[1]) + " for information on " + original[1] + "?"
 
 def comment(commons,original,var):
     
     if var == 0:
-        print "I really don't understand why you like " + original[1] + "so much."
+        print "I really don't understand why you like " + original[1] + " so much."
     elif var == 1:
         print "I knew that already, tell me more about " + original[1] + "."
     elif var == 2:
@@ -134,18 +136,18 @@ def imperative(commons,original,var):
 
 def generalize(commons,original,var):
     if var == 0:
-        print ""
+        print "What type of thing is " + original[1] + "."
     elif var == 1:
-        print "Why " + original[1] + "?"
+        print "What's something related to " + original[1] + "?"
     elif var == 2:
-        pass
+        print "Where is this conversation going if we keep talking about " + original[1] + "?"
     elif var == 3:
-        pass
+        print "How is " + original[1] + " relevant at all?"
     else:
-        pass
+        print "Why are you being so specific?"
 
 def goodbye():
-    print "Anyway, I gotta go, catch you later."
+    print "Anyway, I gotta go, cya."
     #sign off here
 
 if __name__=="__main__":
