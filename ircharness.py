@@ -69,7 +69,10 @@ def getResponse(feed):
                 toRes+=":%s@cor"%(action.core.val,)
         except KeyError:
                 pass
-        return responder.main(toRes,feed)
+        try:
+            return responder.main(toRes,feed)
+        except Exception:
+            "I don't know enough English to answer that yet."
 
 def mapleResponse(str):
     tmp=open("mapleinputswap","w")
@@ -83,7 +86,7 @@ def mapleResponse(str):
     ls = ls[:-3]
     tmp.close()
     os.remove("mapleoutputswap")
-    print ls
+#    print ls
     ret = ["I asked Mr. Maple, he says:"]
     ret.extend(ls,)
     return ret
