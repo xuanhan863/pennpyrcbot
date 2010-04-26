@@ -75,7 +75,7 @@ while feed != "exit":
             except KeyError:
                 pass#print "Action Error"
             #print toRes
-            print responder.main(toRes)
+            print responder.main(toRes,feed)
             
 #            for part in res:
  #               print "***"+part+"***"

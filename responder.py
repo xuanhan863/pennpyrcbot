@@ -17,7 +17,7 @@ type:word theme:word@thm:word@det:word@des:word@cor agent:word@agt:word@det:word
 import sys, re, categorizer, random, epi
 random.seed(2)
 
-def main(line):
+def main(line, src):
     #makes maps
     theme = {}
     agent = {}
@@ -50,10 +50,10 @@ def main(line):
             action = currentDict
     #generate response
     #print "GOT HERE"
-    return genResponse(type, theme, agent, action)
+    return genResponse(src, type, theme, agent, action)
 
 #generates response from word:POS using category
-def genResponse(type, tMap, aMap, actMap):
+def genResponse(src, type, tMap, aMap, actMap):
     #type has yet to be used
 
     #find alternate common topic for each through rgen
@@ -61,10 +61,14 @@ def genResponse(type, tMap, aMap, actMap):
     commons = getCommons(tMap["thm"])
 
     #original eg.cut, carrot, man, salty, very, like
-    original =  [None,tMap["cor"], None, None, None]
+    original =  [None,tMap["cor"], actMap["cor"], None, None]
     #choose type of sentence to construct
     choice = random.randint(0, 40)
     var = random.randint(0,5)
+    
+    if "like" in src.split(" ") or "likes" in src.split(" "):
+        choice = 30
+
     if choice == 0:
         return goodbye()
     elif choice < 11:
@@ -104,17 +108,18 @@ def getCommons(theme):
 
 def question(commons,original,var):
     if var == 0:
-        return "Why do you like " + original[1] + " so much?"
-    elif var == 1:
-        return "What's so good about the " + original[1] + "?"
+        if original[2][-1] == "e":
+            return "Why do you like " + original[2][:-1] + "ing " + original[1]
+        elif original[2][-2:] == "es":
+            return "Why do you like " + original[2][:-2] + "ing " + original[1]
+        else:
+            return "Why do you like " + original[2] + "ing " + original[1]
     elif var == 2:
-        return "I know you like " + original[1] + ", but can you tell me something else?"
+        return "I know you like " + original[1] + ", but what else can you " + original[2] +v"?"
     elif var == 3:
         return "Can't you say something else about the " + original[1] + "?"
-    elif var == 4:
-        return "Ok...and?"
     else:
-        return "Have you checked " + epi.getFoodLink(original[1]) + " for information on the " + original[1] + "?"
+        return "I like " + original[1] + " too. Have you checked out " + epi.getFoodLink(original[1]) + "? They have some cool recipes."
 
 def comment(commons,original,var):
     if var == 0:

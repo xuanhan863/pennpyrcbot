@@ -63,4 +63,4 @@ def getResponse(feed):
                     toRes+=":%s@cor"%(action.core.val,)
             except KeyError:
                 pass
-            return responder.main(toRes)
+            return responder.main(toRes,feed)
