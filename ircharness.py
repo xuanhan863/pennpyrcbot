@@ -24,52 +24,52 @@ def getResponse(feed):
         try:
             res=do(feed)
         except Exception:
-            return "I don't yet know enough English yet to understand you : (."
-            cat = "null"
-            theme_cor=blank
-            try:
-                verbInd=feed.index(res['action'].core.val)
-                end = feed[len(res['action'].core.val):]
-                for word in end.split(" "):
-                    try:
-                        cattry=Global.lookup(word)
-                        cat=cattry.cat
-                        theme_cor = word
-                        if cat !="null" and cat != "": #if we found one
-                            break
-                    except Exception:
-                        pass
-            except KeyError:
-                pass#print "No Action"
-            toRes = "type:"+res['type']
-            theme =res['theme']
-            toRes+=" theme:%s@thm"%(cat,)
-            if theme.det != blank:
-                toRes+=":%s@det"%(theme.det,)
-            for desc in theme.descriptors:
-                toRes+=":%s@des"%(desc.val,)
+            return "I don't know enough English to answer that yet."
+        cat = "null"
+        theme_cor=blank
+        try:
+            verbInd=feed.index(res['action'].core.val)
+            end = feed[len(res['action'].core.val):]
+            for word in end.split(" "):
+                try:
+                    cattry=Global.lookup(word)
+                    cat=cattry.cat
+                    theme_cor = word
+                    if cat !="null" and cat != "": #if we found one
+                        break
+                except Exception:
+                    pass
+        except KeyError:
+            pass#print "No Action"
+        toRes = "type:"+res['type']
+        theme =res['theme']
+        toRes+=" theme:%s@thm"%(cat,)
+        if theme.det != blank:
+            toRes+=":%s@det"%(theme.det,)
+        for desc in theme.descriptors:
+            toRes+=":%s@des"%(desc.val,)
             toRes+=":%s@cor"%(theme_cor,)
             toRes+=" agent"
-            agent=res['agent']
-            if agent.det != blank:
-                try:
-                    toRes+=":%s@det"%(agent.det.val,)
-                except Exception:
-                    toRes+=":%s@det"%(agent.det,)
-            for desc in agent.descriptors:
-                toRes+=":%s@des"%(desc.val,)
-            if agent.core != blank:
-                toRes+=":%s@cor"%(agent.core.val,)
+        agent=res['agent']
+        if agent.det != blank:
             try:
-                toRes+=" action"            
-                action = res['action']
-                for desc in action.descriptors:
-                    toRes+=":%s@des"%(desc.val)
-                if action.core != blank:
-                    toRes+=":%s@cor"%(action.core.val,)
-            except KeyError:
+                toRes+=":%s@det"%(agent.det.val,)
+            except Exception:
+                toRes+=":%s@det"%(agent.det,)
+        for desc in agent.descriptors:
+            toRes+=":%s@des"%(desc.val,)
+        if agent.core != blank:
+            toRes+=":%s@cor"%(agent.core.val,)
+        try:
+            toRes+=" action"            
+            action = res['action']
+            for desc in action.descriptors:
+                toRes+=":%s@des"%(desc.val)
+            if action.core != blank:
+                toRes+=":%s@cor"%(action.core.val,)
+        except KeyError:
                 pass
-            return responder.main(toRes,feed)
+        return responder.main(toRes,feed)
 
 def mapleResponse(str):
     tmp=open("mapleinputswap","w")
@@ -83,7 +83,7 @@ def mapleResponse(str):
     ls = ls[:-3]
     tmp.close()
     os.remove("mapleoutputswap")
-#    print ls
+    print ls
     ret = ["I asked Mr. Maple, he says:"]
     ret.extend(ls,)
     return ret
