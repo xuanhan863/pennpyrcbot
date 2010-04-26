@@ -50,7 +50,7 @@ def main(args=None):
             agent = currentDict
 
     #generate response
-    print genResponse(type, theme, agent, original)
+    print genResponse(type, theme, agent)
 
 #generates response from word:POS using category
 def genResponse(type, tMap, aMap):
@@ -59,11 +59,11 @@ def genResponse(type, tMap, aMap):
     #find alternate common topic for each through rgen
     #reminder: commons is a list [action, agent, descriptor]
     commons = getCommons(tMap["thm"])
-    original =  [tMap["des"],tMap["cor"],
+#    original =  [tMap["des"],tMap["cor"],
     #construct sentence
     #yet to implement probabilistic approach to choosing answers
     #goodbye func can be called at a low probability
-    choice = random.randInt(0, 100)
+    choice = random.randint(0, 100)
     
     if choice == 0:
         return goodbye()
