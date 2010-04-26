@@ -100,10 +100,11 @@ def question(commons):
 def comment(commons):
 #    print "I like " + commons[2] + " " + commons[1] " more."
     pass
+
 def imperative(commons):
     pass
 
-def generalize():
+def generalize(commons):
     pass
 
 def goodbye():
