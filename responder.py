@@ -134,7 +134,7 @@ def imperative(commons,original,var):
 
 def generalize(commons,original,var):
     if var == 0:
-        print "
+        print ""
     elif var == 1:
         print "Why " + original[1] + "?"
     elif var == 2:
