@@ -1,7 +1,10 @@
 #!/usr/bin/python
 import naive_parser as parser
 import readline
+from thematic_roles import *
+import Global
 
+out=""
 endpunc='.?!'
 
 do = parser.parse
