@@ -3,6 +3,7 @@ import naive_parser as parser
 import readline
 from thematic_roles import *
 import Global, responder
+import os
 
 endpunc='.?!'
 
@@ -10,6 +11,8 @@ do = parser.parse
 
 blank='_none'
 def getResponse(feed):
+    if feed[0] == ">":
+        return mapleResponse(feed[1:])
     if feed[-1] in endpunc:
         feed = feed[:-1] + " " + feed[-1]  #add in space before last punctuation
     else:
@@ -18,7 +21,10 @@ def getResponse(feed):
         feed = feed[0].lower() + feed[1:] #make sure first word lower case
 
     if feed is not None:
+        try:
             res=do(feed)
+        except Exception:
+            return "I don't yet know enough English yet to understand you : (."
             cat = "null"
             theme_cor=blank
             try:
@@ -64,3 +70,20 @@ def getResponse(feed):
             except KeyError:
                 pass
             return responder.main(toRes,feed)
+
+def mapleResponse(str):
+    tmp=open("mapleinputswap","w")
+    tmp.write(str)
+    tmp.close()
+    os.system("maple mapleinputswap > mapleoutputswap")
+    os.remove("mapleinputswap")
+    tmp=open("mapleoutputswap")
+    ls = [line[:-1] for line in tmp]
+    ls = ls[6:] # strip header and footer
+    ls = ls[:-3]
+    tmp.close()
+    os.remove("mapleoutputswap")
+#    print ls
+    ret = ["I asked Mr. Maple, he says:"]
+    ret.extend(ls,)
+    return ret
