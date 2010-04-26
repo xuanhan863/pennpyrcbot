@@ -50,7 +50,7 @@ def main(line):
             action = currentDict
     #generate response
     #print "GOT HERE"
-    print genResponse(type, theme, agent, action)
+    return genResponse(type, theme, agent, action)
 
 #generates response from word:POS using category
 def genResponse(type, tMap, aMap, actMap):
@@ -61,14 +61,10 @@ def genResponse(type, tMap, aMap, actMap):
     commons = getCommons(tMap["thm"])
 
     #original eg.cut, carrot, man, salty, very, like
-    if actMap != {}:
-        original =  [None,tMap["cor"], None, aMap["des"], None]
-    else:
-        original = [None,tMap["cor"], aMap["cor"], aMap["des"], None, None]
+    original =  [None,tMap["cor"], None, None, None]
     #choose type of sentence to construct
-    choice = random.randint(0, 50)
+    choice = random.randint(0, 40)
     var = random.randint(0,5)
-    print choice
     if choice == 0:
         return goodbye()
     elif choice < 11:
@@ -85,8 +81,8 @@ def genResponse(type, tMap, aMap, actMap):
             return imperative(commons,original,var)
         else:
             return comment(commons,original,var)
-    elif choice < 51:
-        return change(commons, original, var)
+   # elif choice < 51:
+    #    return change(commons, original, var)
     else:
         return "\"There are 10 kinds of people in this world, those who understand binary, and those who don't\""
 
@@ -108,60 +104,60 @@ def getCommons(theme):
 
 def question(commons,original,var):
     if var == 0:
-        return "Why " + original[1] + "?"
+        return "Why do you like " + original[1] + " so much?"
     elif var == 1:
-        return "What's so good about " + original[1] + "?"
+        return "What's so good about the " + original[1] + "?"
     elif var == 2:
-        return "I know you like " + original[1] + ", but can you tell me more?"
+        return "I know you like " + original[1] + ", but can you tell me something else?"
     elif var == 3:
-        return "Do you have something else to say about " + original[1] + "?"
+        return "Can't you say something else about the " + original[1] + "?"
     elif var == 4:
         return "Ok...and?"
-    elif original[5] == "like":
-        return "Have you checked " + epi.getFoodLink(original[1]) + " for information on " + original[1] + "?"
+    else:
+        return "Have you checked " + epi.getFoodLink(original[1]) + " for information on the " + original[1] + "?"
 
 def comment(commons,original,var):
     if var == 0:
-        return "I really don't understand why you like " + original[1] + " so much."
+        return "I really don't understand why you like the " + original[1] + " so much."
     elif var == 1:
-        return "I knew that already, tell me more about " + original[1] + "."
+        return "I knew that already, tell me more about the " + original[1] + "."
     elif var == 2:
         return "I really don't know what to say about that."
     elif var == 3:
-        return "I've never thought about that. Hmm..."
+        return "I've never knew that. Really?"
     else:
-        return "I hold a very different point of view."
+        return "I don't do that very often."
 
 def imperative(commons,original,var):
     if var == 0:
         return "You should not think that way."
     elif var == 1:
-        return "There is nothing worse than that."
+        return "There is nothing cooler than that."
     elif var == 2:
-        return "Please don't..."
+        return "I don't know about that..."
     elif var == 3:
         return "Tell me more."
     elif var == 4:
         return "You're losing my attention. Be more interesting."
     else:
-        return "That sounds interesting. Tell me all there is to know."
+        return "That sounds interesting. Tell me more about the " + original[1] + "."
 
 def generalize(commons,original,var):
     if var == 0:
-        return "What type of thing is " + original[1] + "."
+        return "What type of thing is " + original[1] + "?"
     elif var == 1:
         return "What's something related to " + original[1] + "?"
     elif var == 2:
         return "Where is this conversation going if we keep talking about " + original[1] + "?"
     elif var == 3:
-        return "How is " + original[1] + " relevant at all?"
+        return "How is the " + original[1] + " relevant at all?"
     elif var == 4:
         return "Why are you being so specific?"
     else:
-        return "That's not it, is it?"
+        return "Can't it be something else?"
 
-def change(commons,original,var):
-    return "How about " + commons[2] + " " + commons[1] + "?"
+#def change(commons,original,var):
+#    return "How about " + commons[2] + " " + commons[1] + "?"
 
 def goodbye():
     return "Anyway, I gotta go, cya."

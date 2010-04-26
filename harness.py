@@ -34,7 +34,7 @@ while feed != "exit":
                     except Exception:
                         pass
             except KeyError:
-                print "No Action"
+                pass#print "No Action"
             toRes = "type:"+res['type']
             theme =res['theme']
             toRes+=" theme:%s@thm"%(cat,)#+lookup()+"@thm"#FUCK THAT
@@ -73,8 +73,8 @@ while feed != "exit":
                 if action.core != blank:
                     toRes+=":%s@cor"%(action.core.val,)
             except KeyError:
-                print "Action Error"
-            print toRes
+                pass#print "Action Error"
+            #print toRes
             print responder.main(toRes)
             
 #            for part in res:
@@ -82,7 +82,7 @@ while feed != "exit":
   #              print res[part]
    #             print "-------------------------------"
 #        except Exception:
-            print "Sorry, my English knowledge was too limited to understand that."
+#            print "Sorry, my English knowledge was too limited to understand that."
     feed = raw_input("\n> ")
 #laziness hacks
     if feed[-1] in endpunc:
