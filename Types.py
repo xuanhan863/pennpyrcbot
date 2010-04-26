@@ -1,5 +1,5 @@
 class POS:
-        noun, verb, adj, adv, det, wh, aux, cop, null = range(7)
+        noun, verb, adj, adv, det, wh, aux, cop, null = range(9)
 
 parse_tag_symbol = "@"
 class Word:
