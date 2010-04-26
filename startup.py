@@ -31,6 +31,7 @@ if outOfDate(wordtablefname,binWordLists):
     for file in binWordLists:
         ls = loadFile(file)
         for word in ls:
+#            print word
             allwords[word.val]=word
         del ls
     dest=open(wordtablefname,"wb")

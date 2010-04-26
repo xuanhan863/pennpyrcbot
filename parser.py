@@ -111,7 +111,9 @@ def p_question(p):
                 | WH COP dp predp'''
     if len(p) == 4: p[0] = Question(Agent(p[2]), Action(p[3]), p[3].predicate, "tf")
     elif lookup(p[2]).POS == POS.aux: p[0] = Question(Agent(p[3]), Action(p[4]), p[4].predicate, p[1])
-    else: p[0] = Question(Agent(p[3]), Action(VPrime(VP(None, VNaught(lookup(p[2])), p[4])), p[4], p[1])
+    else:
+#        first = Question(Agent(p[3]))
+        p[0] = Question(Agent(p[3]), Action(VPrime(VP(None, VNaught(lookup(p[2])), p[4])), p[4], p[1]))
 
 def p_dp(p):
     '''dp : DET np
@@ -142,7 +144,7 @@ def p_vprime(p):
     if len(p) == 3: p[0] = VPrime(p[1], p[2])
     else: p[0] = VPrime(p[1], None)
 
-def p_predp:
+def p_predp(p):
     ''' predp : TO VERB
               | ADJ
               | dp'''

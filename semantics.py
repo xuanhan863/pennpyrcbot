@@ -16,7 +16,7 @@ class Sentence:
     def __init__(self, agent, action, predicate):
         self.agent, self.action, self.predicate = agent, action, predicate
     def __str__(self):
-        return " ".join([str(self.agent), str(self.action), str(self.predicate)]}
+        return " ".join([str(self.agent), str(self.action), str(self.predicate)])
     def __repr(self): return str(self)
 
 class Statement(Sentence):
