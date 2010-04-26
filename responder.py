@@ -152,7 +152,7 @@ def imperative(commons,original,var):
     elif var == 3:
         return "Tell me more."
     elif var == 4:
-        return "You're losing my attention. We've been through who " + original[2] + " " + original[1] + "."
+        return "You're losing my attention. We've been through who " + original[2] + "s " + original[1] + "."
     else:
         return "Oh Wow, how do you " + original[2] + " " + original[1] + "?"
 
