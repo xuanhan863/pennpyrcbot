@@ -2,12 +2,14 @@
 import naive_parser as parser
 import readline
 from thematic_roles import *
-import Global
+import Global, responder
 
 out=""
 endpunc='.?!'
 
 do = parser.parse
+
+blank='_none'
 
 feed = None
 print "I am still in the process of learning English."
@@ -17,10 +19,52 @@ while feed != "exit":
     if feed is not None:
         try:
             res=do(feed)
-            for part in res:
-                print "***"+part+"***"
-                print res[part]
-                print "-------------------------------"
+            verbInd=feed.index(res['action'].core.val)
+            end = feed[len(res['action'].core.val):]
+            cat = "null"
+            for word in end.split(" "):
+                try:
+                    cattry=Global.lookup(word)
+                    print cattry
+                    cat=cattry.cat
+                except Exception:
+                    pass
+            toRes = "type:"+res['type']
+            theme =res['theme']
+            toRes+=" theme:%s@thm"%(cat,)#+lookup()+"@thm"#FUCK THAT
+            if theme.det != blank:
+                toRes+=":%s@det"%(theme.det,)
+            for desc in theme.descriptors:
+                toRes+=":%s@des"%(desc.val,)
+            if theme.core != blank:
+                try:
+                    toRes+=":%s@cor"%(theme.core.val,)
+                except AttributeError:
+                    try:
+                        toRes+=":%s@cor"%(theme.core[0].val,)
+                    except IndexError:
+                        pass
+            toRes+=" agent"
+            agent=res['agent']
+            if agent.det != blank:
+                toRes+=":%s@det"%(agent.det,)
+            for desc in agent.descriptors:
+                toRes+=":%s@des"%(desc.val,)
+            if agent.core != blank:
+                toRes+=":%s@cor"%(agent.core.val,)
+            toRes+="action"
+            action = res['action']
+            for desc in action.descriptors:
+                toRes+=":%s@des"%(desc.val)
+            if action.core != blank:
+                toRes+=":%s@cor"%(action.core.val,)
+            
+            print responder.main(toRes)
+            
+#            for part in res:
+ #               print "***"+part+"***"
+  #              print res[part]
+   #             print "-------------------------------"
         except Exception:
             print "Sorry, my English knowledge was too limited to understand that."
     feed = raw_input("\n> ")

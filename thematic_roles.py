@@ -64,7 +64,7 @@ class action:
 class theme:
 
     def __init__(self, words):
-        self.det, self.descriptors = null, []
+        self.det, self.descriptors, self.core = null, [], null
         self.isnp = False
 
         for word in words:
