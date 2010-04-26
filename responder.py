@@ -110,11 +110,11 @@ def getCommons(theme):
 def question(commons,original,var):
     if var == 0 and original[2] is not "like":
         if original[2][-1] == "e":
-            return "Why do you like " + original[2][:-1] + "ing " + original[1]
+            return "Why do you like " + original[2][:-1] + "ing " + original[1] + "?"
         elif original[2][-2:] == "es":
-            return "Why do you like " + original[2][:-2] + "ing " + original[1]
+            return "Why do you like " + original[2][:-2] + "ing " + original[1] + "?"
         else:
-            return "Why do you like " + original[2] + "ing " + original[1]
+            return "Why do you like " + original[2] + "ing " + original[1] + "?"
     elif var == 2:
         return "I know you like " + original[1] + ", but what else can you " + original[2] + "?"
     elif var == 3:
@@ -134,7 +134,7 @@ def comment(commons,original,var):
     if var == 0:
         return "I really don't understand why you like to " + original[2] + " " + original[1] + " so much."
     elif var == 1:
-        return "I knew that already, how do you like to " + original[2] + " your " + original[1] + "."
+        return "I knew that already, how do you like to " + original[2] + " your " + original[1] + "?"
     elif var == 2:
         return "I really don't know what to say about that."
     elif var == 3:
@@ -146,7 +146,7 @@ def imperative(commons,original,var):
     if var == 0:
         return "I prefer to " + commons[0] + " " + commons[1] + "."
     elif var == 1:
-        return "Have you ever tried to " + commons[0] + " " + commons[1] + ". You might like it better."
+        return "Have you ever tried to " + commons[0] + " " + commons[1] + "? You might like that better."
     elif var == 2:
         return "Is the " + original[1] + " also " + commons[2] + "?"
     elif var == 3:
@@ -158,7 +158,7 @@ def imperative(commons,original,var):
 
 def generalize(commons,original,var):
     if var == 0:
-        return "What type of thing is " + original[1] + "?"
+        return "What type of " + original[1] + " do you like?"
     elif var == 1:
         return "What else is related to the " + original[1] + "?"
     elif var == 2:
