@@ -15,8 +15,9 @@ Input Format:
 type:word theme:word@thm:word@det:word@des:word@cor agent:word@agt:word@det:word@des:word@cor action:word@act:word@des:word@cor
 """
 import sys, re, categorizer, random, epi
+random.seed(2)
 
-def main(args=None):
+def main(line):
     #makes maps
     theme = {}
     agent = {}
@@ -25,31 +26,31 @@ def main(args=None):
 
     #to be adjusted to read from output of another class/script
     #sample input is currently rotten carrots
-    file = open("input", 'r')
-    for line in file:
-        input = line
+    #file = open("input", 'r')
+    #for line in file:
+    input = line
 
-        sectionList = input.split(" ")
-        for group in sectionList:
-            currentDict = {}
-            groupList=group.split(":")
-            if groupList[0] == "type":
-                type = groupList[1]
-            elif groupList[0] == "theme" or groupList[0] == "agent" or groupList[0] == "action":
-                for element in groupList[1:]:
-                    pair = element.split("@")
-                    currentDict[pair[1].strip()] = pair[0].strip()
-            else:
-                print "Input format not recognized"
-            print currentDict
-            if groupList[0] == "theme":
-                theme = currentDict
-            elif groupList[0] == "agent":
-                agent = currentDict
-            elif groupList[0] == "action":
-                action = currentDict
+    sectionList = input.split(" ")
+    for group in sectionList:
+        currentDict = {}
+        groupList=group.split(":")
+        if groupList[0] == "type":
+            type = groupList[1]
+        elif groupList[0] == "theme" or groupList[0] == "agent" or groupList[0] == "action":
+            for element in groupList[1:]:
+                pair = element.split("@")
+                currentDict[pair[1].strip()] = pair[0].strip()
+        else:
+            print "Input format not recognized"
+        if groupList[0] == "theme":
+            theme = currentDict
+        elif groupList[0] == "agent":
+            agent = currentDict
+        elif groupList[0] == "action":
+            action = currentDict
     #generate response
-        print genResponse(type, theme, agent, action)
+    #print "GOT HERE"
+    print genResponse(type, theme, agent, action)
 
 #generates response from word:POS using category
 def genResponse(type, tMap, aMap, actMap):
@@ -60,12 +61,14 @@ def genResponse(type, tMap, aMap, actMap):
     commons = getCommons(tMap["thm"])
 
     #original eg.cut, carrot, man, salty, very, like
-    original =  [tMap["des"],tMap["cor"], aMap["cor"], aMap["des"], actMap["des"], actMap["cor"]]
-
+    if actMap != {}:
+        original =  [None,tMap["cor"], None, aMap["des"], None]
+    else:
+        original = [None,tMap["cor"], aMap["cor"], aMap["des"], None, None]
     #choose type of sentence to construct
     choice = random.randint(0, 50)
     var = random.randint(0,5)
-
+    print choice
     if choice == 0:
         return goodbye()
     elif choice < 11:
@@ -73,9 +76,17 @@ def genResponse(type, tMap, aMap, actMap):
     elif choice < 21:
         return comment(commons,original,var)
     elif choice < 31:
-        return question(commons,original,var)
+        if type == "statement":
+            return question(commons,original,var)
+        else:
+            return generalize(commons,original,var)
     elif choice < 41:
-        return imperative(commons,original,var)
+        if type == "statement":
+            return imperative(commons,original,var)
+        else:
+            return comment(commons,original,var)
+    elif choice < 51:
+        return change(commons, original, var)
     else:
         return "\"There are 10 kinds of people in this world, those who understand binary, and those who don't\""
 
@@ -97,58 +108,64 @@ def getCommons(theme):
 
 def question(commons,original,var):
     if var == 0:
-        print "Why " + original[1] + "?"
+        return "Why " + original[1] + "?"
     elif var == 1:
-        print "What's so good about " + original[1] + "?"
+        return "What's so good about " + original[1] + "?"
     elif var == 2:
-        print "I know you like " + original[1] + ", but can you tell me more?"
+        return "I know you like " + original[1] + ", but can you tell me more?"
     elif var == 3:
-        print "Do you have something else to say about " + original[1] + "?"
+        return "Do you have something else to say about " + original[1] + "?"
     elif var == 4:
-        print "Ok...and?"
-    else:
-        print "Have you checked " + epi.getFoodLink(original[1]) + " for information on " + original[1] + "?"
+        return "Ok...and?"
+    elif original[5] == "like":
+        return "Have you checked " + epi.getFoodLink(original[1]) + " for information on " + original[1] + "?"
 
 def comment(commons,original,var):
-    
     if var == 0:
-        print "I really don't understand why you like " + original[1] + " so much."
+        return "I really don't understand why you like " + original[1] + " so much."
     elif var == 1:
-        print "I knew that already, tell me more about " + original[1] + "."
+        return "I knew that already, tell me more about " + original[1] + "."
     elif var == 2:
-        print "I really don't know what to say about that."
+        return "I really don't know what to say about that."
     elif var == 3:
-        print "I've never thought about that. Hmm..."
+        return "I've never thought about that. Hmm..."
     else:
-        print "I hold a very different point of view."
+        return "I hold a very different point of view."
 
 def imperative(commons,original,var):
     if var == 0:
-        print "You should not think that way"
+        return "You should not think that way."
     elif var == 1:
-        print "There is nothing worse than that"
+        return "There is nothing worse than that."
     elif var == 2:
-        print "Please don't..."
+        return "Please don't..."
     elif var == 3:
-        print "Tell me more."
+        return "Tell me more."
+    elif var == 4:
+        return "You're losing my attention. Be more interesting."
     else:
-        print "You're losing my attention. Be more interesting."
+        return "That sounds interesting. Tell me all there is to know."
 
 def generalize(commons,original,var):
     if var == 0:
-        print "What type of thing is " + original[1] + "."
+        return "What type of thing is " + original[1] + "."
     elif var == 1:
-        print "What's something related to " + original[1] + "?"
+        return "What's something related to " + original[1] + "?"
     elif var == 2:
-        print "Where is this conversation going if we keep talking about " + original[1] + "?"
+        return "Where is this conversation going if we keep talking about " + original[1] + "?"
     elif var == 3:
-        print "How is " + original[1] + " relevant at all?"
+        return "How is " + original[1] + " relevant at all?"
+    elif var == 4:
+        return "Why are you being so specific?"
     else:
-        print "Why are you being so specific?"
+        return "That's not it, is it?"
+
+def change(commons,original,var):
+    return "How about " + commons[2] + " " + commons[1] + "?"
 
 def goodbye():
-    print "Anyway, I gotta go, cya."
-    #sign off here
+    return "Anyway, I gotta go, cya."
+    #quit here
 
 if __name__=="__main__":
     exit(main())

@@ -17,18 +17,20 @@ print "Please test my knowledge with sentences."
 print "I'll read them in and tell you what I understand."
 while feed != "exit":
     if feed is not None:
-        try:
+ #       try:
             res=do(feed)
-            verbInd=feed.index(res['action'].core.val)
-            end = feed[len(res['action'].core.val):]
             cat = "null"
-            for word in end.split(" "):
-                try:
-                    cattry=Global.lookup(word)
-                    print cattry
-                    cat=cattry.cat
-                except Exception:
-                    pass
+            try:
+                verbInd=feed.index(res['action'].core.val)
+                end = feed[len(res['action'].core.val):]
+                for word in end.split(" "):
+                    try:
+                        cattry=Global.lookup(word)
+                        cat=cattry.cat
+                    except Exception:
+                        pass
+            except KeyError:
+                print "No Action"
             toRes = "type:"+res['type']
             theme =res['theme']
             toRes+=" theme:%s@thm"%(cat,)#+lookup()+"@thm"#FUCK THAT
@@ -47,25 +49,34 @@ while feed != "exit":
             toRes+=" agent"
             agent=res['agent']
             if agent.det != blank:
-                toRes+=":%s@det"%(agent.det,)
+                #if agent.det[-6:] == "():Det":
+                 #   agent.det=agent.det[:-6]
+                try:
+                    toRes+=":%s@det"%(agent.det.val,)
+                except Exception:
+                    toRes+=":%s@det"%(agent.det,)
+                    
             for desc in agent.descriptors:
                 toRes+=":%s@des"%(desc.val,)
             if agent.core != blank:
                 toRes+=":%s@cor"%(agent.core.val,)
-            toRes+="action"
-            action = res['action']
-            for desc in action.descriptors:
-                toRes+=":%s@des"%(desc.val)
-            if action.core != blank:
-                toRes+=":%s@cor"%(action.core.val,)
-            
+            try:
+                toRes+=" action"            
+                action = res['action']
+                for desc in action.descriptors:
+                    toRes+=":%s@des"%(desc.val)
+                if action.core != blank:
+                    toRes+=":%s@cor"%(action.core.val,)
+            except KeyError:
+                print "Action Error"
+            print toRes
             print responder.main(toRes)
             
 #            for part in res:
  #               print "***"+part+"***"
   #              print res[part]
    #             print "-------------------------------"
-        except Exception:
+#        except Exception:
             print "Sorry, my English knowledge was too limited to understand that."
     feed = raw_input("\n> ")
 #laziness hacks
