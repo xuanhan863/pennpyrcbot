@@ -66,6 +66,7 @@ def genResponse(src, type, tMap, aMap, actMap):
     choice = random.randint(0, 40)
     var = random.randint(0,5)
     
+    print commons
     if "like" in src.split(" ") or "likes" in src.split(" "):
         choice = 30
 
@@ -107,7 +108,7 @@ def getCommons(theme):
     return None
 
 def question(commons,original,var):
-    if var == 0:
+    if var == 0 and original[2] is not "like":
         if original[2][-1] == "e":
             return "Why do you like " + original[2][:-1] + "ing " + original[1]
         elif original[2][-2:] == "es":
@@ -115,37 +116,45 @@ def question(commons,original,var):
         else:
             return "Why do you like " + original[2] + "ing " + original[1]
     elif var == 2:
-        return "I know you like " + original[1] + ", but what else can you " + original[2] +v"?"
+        return "I know you like " + original[1] + ", but what else can you " + original[2] + "?"
     elif var == 3:
         return "Can't you say something else about the " + original[1] + "?"
     else:
-        return "I like " + original[1] + " too. Have you checked out " + epi.getFoodLink(original[1]) + "? They have some cool recipes."
+        rizer = random.randint(0, 3)
+        if rizer == 0:
+            return "oh I found a cool recipe for " + original[1] + ". Look at this recipe! " + epi.getFoodLink(original[1])
+        elif rizer == 1:
+            return "Check out this dish I made with " + original[1] + " the other day. " + epi.getFoodLink(original[1])
+        elif rizer == 2:
+            return "I usually use this recipe with my " + original[1] + ". " + epi.getFoodLink(original[1]) + ". You should try it some time."
+        elif rizer == 3:
+            return "I like " + original[1] + " too. This is my favorite recipe to go with it! " + epi.getFoodLink(original[1])
 
 def comment(commons,original,var):
     if var == 0:
-        return "I really don't understand why you like the " + original[1] + " so much."
+        return "I really don't understand why you like to " + original[2] + " " + original[1] + " so much."
     elif var == 1:
-        return "I knew that already, tell me more about the " + original[1] + "."
+        return "I knew that already, how do you like to " + original[2] + " your " + original[1] + "."
     elif var == 2:
         return "I really don't know what to say about that."
     elif var == 3:
         return "I've never knew that. Really?"
     else:
-        return "I don't do that very often."
+        return "I don't " + original[2] + " " + original[1] + " very often."
 
 def imperative(commons,original,var):
     if var == 0:
-        return "There's no reason to say that"
+        return "I prefer to " + commons[0] + " " + commons[1] + "."
     elif var == 1:
-        return "There is nothing cooler than that."
+        return "Have you ever tried to " + commons[0] + " " + commons[1] + ". You might like it better."
     elif var == 2:
-        return "I don't know about that..."
+        return "Is the " + original[1] + " also " + commons[2] + "?"
     elif var == 3:
         return "Tell me more."
     elif var == 4:
-        return "You're losing my attention. Be more interesting."
+        return "You're losing my attention. We've been through who " + original[2] + " " + original[1] + "."
     else:
-        return "That sounds interesting. Tell me more about the " + original[1] + "."
+        return "Oh Wow, how do you " + original[2] + " " + original[1] + "?"
 
 def generalize(commons,original,var):
     if var == 0:
@@ -157,9 +166,9 @@ def generalize(commons,original,var):
     elif var == 3:
         return "How is the " + original[1] + " relevant at all?"
     elif var == 4:
-        return "That's too specific. What else?"
+        return "That's too specific. What else do you like to " + original[2] + "?"
     else:
-        return "Can't it be something else?"
+        return "Can't it " + original[2] + " something else?"
 
 #def change(commons,original,var):
 #    return "How about " + commons[2] + " " + commons[1] + "?"
