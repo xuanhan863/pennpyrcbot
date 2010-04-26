@@ -98,8 +98,8 @@ def question(commons):
     print "How about " + commons[2] + " " + commons[1] + "?"
 
 def comment(commons):
-    print "I like " + commons[2] + " " + commons[1] " more."
-
+#    print "I like " + commons[2] + " " + commons[1] " more."
+    pass
 def imperative(commons):
     pass
 
