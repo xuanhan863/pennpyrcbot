@@ -15,20 +15,21 @@ class Sentence:
     type = "null"
     def __init__(self, agent, action, predicate):
         self.agent, self.action, self.predicate = agent, action, predicate
+        self.type = None
     def __str__(self):
-        return " ".join([str(self.agent), str(self.action), str(self.predicate)])
+        return self.type + ": agent = " + str(self.agent) + ", action =  " + str(self.action) + ", predicate = " + str(self.predicate)
     def __repr(self): return str(self)
 
 class Statement(Sentence):
-    type = "statement"
     def __init__(self, agent, action, predicate):
         Sentence.__init__(self, agent, action, predicate)
+        self.type = "statement"
 
 #The query (a plain string) can be either tf (true or false), or a wh-word
 class Question(Sentence):
-    type = "question"
     def __init__(self, agent, action, predicate, query):
         Sentence.__init__(self, agent, action, predicate)
+        self.type = "question"
         self.query = query
 
 #--------------------
@@ -128,7 +129,7 @@ class VPrime:
     def __str__(self):
         s = ""
         if self.descriptor: s += (self.descriptor.val + " ")
-        s += (self.core + " ")
+        s += (self.core.val + " ")
         if self.predicate: s += str(self.predicate)
         return s
     def __repr__(self):

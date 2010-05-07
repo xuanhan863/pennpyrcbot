@@ -16,7 +16,7 @@ tokens = (
     'NOUN',
     'ADJ',
     'ADV',
-    'VERB'
+    'VERB',
     )
 
 literals = ['.', '?']
@@ -24,42 +24,42 @@ literals = ['.', '?']
 t_TO = r'to'
 
 def t_WH(t):
-    POS.Wh.parse_tag + r'[a-zA-Z]+'
+    r'@wh_[a-zA-Z]+'
     t.value = t.value[4:]
     return t
 
 def t_AUX(t):
-    POS.Aux.parse_tag + r'[a-zA-Z]+'
+    r'@aux_[a-zA-Z]+'
     t.value = t.value[5:]
     return t
 
 def t_COP(t):
-    POS.Cop.parse_tag + r'[a-zA-Z]+'
+    r'@cop_[a-zA-Z]+'
     t.value = t.value[5:]
     return t
 
 def t_DET(t):
-    POS.Det.parse_tag + r'[a-zA-Z]+'
+    r'@det_[a-zA-Z]+'
     t.value = t.value[5:]
     return t
 
 def t_NOUN(t):
-    POS.Noun.parse_tag + r'[a-zA-Z]+'
+    r'@noun_[a-zA-Z]+'
     t.value = t.value[6:]
     return t
 
 def t_ADJ(t):
-    POS.Adj.parse_tag + r'[a-zA-Z]+'
+    r'@adj_[a-zA-Z]+'
     t.value = t.value[5:]
     return t
 
 def t_ADV(t):
-    POS.Adv.parse_tag + r'[a-zA-Z]+'
+    r'@adv_[a-zA-Z]+'
     t.value = t.value[5:]
     return t
 
 def t_VERB(t):
-    POS.Verb.parse_tag + r'[a-zA-Z]+'
+    r'@verb_[a-zA-Z]+'
     t.value = t.value[6:]
     return t    
 
@@ -101,7 +101,7 @@ def p_sentence(p):
     p[0] = p[1]
 
 def p_statement(p):
-    'statement: dp vprime'
+    'statement : dp vprime'
     # ^p[0]     ^p[1] ^p[2]
     p[0] = Statement(Agent(p[1]), Action(p[2]), p[2].predicate)
 
@@ -110,7 +110,7 @@ def p_question(p):
                 | WH AUX dp vprime
                 | WH COP dp predp'''
     if len(p) == 4: p[0] = Question(Agent(p[2]), Action(p[3]), p[3].predicate, "tf")
-    elif lookup(p[2]).POS == POS.aux: p[0] = Question(Agent(p[3]), Action(p[4]), p[4].predicate, p[1])
+    elif p[2].type == 'AUX': p[0] = Question(Agent(p[3]), Action(p[4]), p[4].predicate, p[1])
     else:
 #        first = Question(Agent(p[3]))
         p[0] = Question(Agent(p[3]), Action(VPrime(VP(None, VNaught(lookup(p[2])), p[4])), p[4], p[1]))
@@ -130,11 +130,11 @@ def p_np(p):
 def p_vnaught(p):
     '''vnaught : VERB
                | COP'''
-    p[0] = VNaught(p[1])
+    p[0] = VNaught(lookup(p[1]))
 
 def p_vp(p):
-    '''vp : ADV VNaught
-          | VNaught'''
+    '''vp : ADV vnaught
+          | vnaught'''
     if len(p) == 3: p[0] = VP(lookup(p[1]), p[2])
     else: p[0] = VP(None, p[1])
 
@@ -149,19 +149,16 @@ def p_predp(p):
               | ADJ
               | dp'''
     if len(p) == 3: p[0] = Predicate("infinitive", lookup(p[2]))
-    elif lookup(p[1]).POS == POS.adj: p[0] = Predicate("linked", lookup(p[1]))
-    else: p[0] = Predicate("theme", p[1])
+    else:
+        try: 
+            if p[1].type == 'ADJ': p[0] = Predicate("linked", lookup(p[1]))
+        except AttributeError: p[0] = Predicate("theme", p[1])
+
+def p_error(p): print "Syntax error at '%s'" % p.value 
 
 
 #--------------------
 #parser testing
 #--------------------
-parser = yacc.yacc()
+parser = yacc.yacc(debug=True)
 print parser.parse("@det_a @adj_happy @noun_cook @adv_rapidly @verb_sliced @det_the @noun_radishes .")
-                                  
-                                 
-          
-
-
-
-          
