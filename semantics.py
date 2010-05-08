@@ -17,7 +17,7 @@ class Sentence:
         self.agent, self.action, self.predicate = agent, action, predicate
         self.type = None
     def __str__(self):
-        return self.type + ": agent = " + str(self.agent) + ", action =  " + str(self.action) + ", predicate = " + str(self.predicate)
+        return self.type + ": agent = " + str(self.agent) + ", action = " + str(self.action) + ", predicate = " + str(self.predicate)
     def __repr(self): return str(self)
 
 class Statement(Sentence):

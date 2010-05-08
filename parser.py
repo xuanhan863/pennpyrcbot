@@ -1,4 +1,4 @@
-import lex, yacc
+import lex, yacc, res
 from  Global import *
 from Types import *
 from semantics import *
@@ -161,4 +161,7 @@ def p_error(p): print "Syntax error at '%s'" % p.value
 #parser testing
 #--------------------
 parser = yacc.yacc(debug=True)
-print parser.parse("@det_a @adj_happy @noun_cook @adv_rapidly @verb_sliced @det_the @noun_radishes .")
+sentence = parser.parse("@det_a @adj_happy @noun_cook @adv_rapidly @verb_sliced @det_the @noun_radishes .")
+print res.main(sentence)
+
+

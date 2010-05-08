@@ -116,7 +116,7 @@ def question(commons,original,var):
         else:
             return "Why do you like " + original[2] + "ing " + original[1] + "?"
     elif var == 2:
-        return "I know you like " + original[1] + ", but what else can you " + original[2] + "?"
+        return "I know you like " + original[1] + ", but what else canyou " + original[2] + "?"
     elif var == 3:
         return "Can't you say something else about the " + original[1] + "?"
     else:
