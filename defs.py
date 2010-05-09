@@ -13,7 +13,7 @@ punc = ".!,?:;" #simple after-word-only punctuation
 
 #helper functions		
 def outOfDate(product,deps):
-	"""Checks if the modification date of any file in deps is later than the modification date for product."""
+	"""Checks if the modification date of any file in deps is later than the modification date for product.  Mentally, this should be called pyMake"""
         if not os.path.exists(product):
                 return True
         for dep in deps:

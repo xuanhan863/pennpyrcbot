@@ -1,12 +1,6 @@
 #!/usr/bin/python
 import sys, re, os
 
-#pattern = r'<script language="JavaScript1\.1".*</script>\s*<div class="sr_rows\s*nobordertop ">\s*<div class="sr_lnk_box">\s*<a href="(?P<addr>/recipes/\w*)" onclick="'
-
-#pattern = r'</script>\s*<div class="sr_rows\s*nobordertop ">\s*<div class="sr_lnk_box">\s*<a href="(?P<addr>/recipes/\w*)" onclick="'
-
-#pattern = r'\s*nobordertop\s*">\s*<div\s*class="sr_lnk_box">\s*<a\s*href="(?P<addr>/recipes/\w*)"\s*onclick="'
-#pattern = r'<div\s*class="sr_rows\s*nobordertop\s*">\s*<div\s*class="sr_lnk_box">\s*<a href="(?P<addr>/recipes/(\w|/|-)*)"\s*onclick="'
 pattern = r'<div\s*class="sr_lnk_box">\s*<a href="(?P<addr>/recipes/(\w|/|-)*)"\s*onclick="'
 
 matcher=re.compile(pattern)
@@ -14,7 +8,9 @@ matcher=re.compile(pattern)
 def getFoodLink(search):
     """Takes in a string which is sometype of food, performs a search on Epicruious.com, returns a URL with a recipe."""
     try:
-        search=search.replace(" ","\%20") #for http lookups
+        #for http lookups on stuff like "peanut butter"
+        search=search.replace(" ","\%20") 
+        #too lazy to check how to do this in python
         os.system("wget -q http://www.epicurious.com/tools/searchresults/all?search="+search+" 2>&1 1>/dev/null")
         search = search.replace("\%20", " ") #and back
         src=open("all?search="+search)

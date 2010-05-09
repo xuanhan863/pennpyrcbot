@@ -166,9 +166,10 @@ def p_error(p): print "Syntax error at '%s'" % p.value
 #parser testing
 #--------------------
 parser = yacc.yacc(debug=True)
-sentence = parser.parse("@det_a @adj_happy @noun_cook @adv_rapidly @verb_sliced @det_the @noun_radishes .")
-sentence2 = parser.parse("@det_a @adj_happy @noun_cook @verb_likes to @verb_eat .")
-sentence3 = parser.parse("@wh_when @aux_does @det_the @noun_cook @verb_eat ?")
-print res.main(sentence)
-print res.main(sentence2)
-print res.main(sentence3)
+if __name__ == "__main__":
+    sentence = parser.parse("@det_a @adj_happy @noun_cook @adv_rapidly @verb_sliced @det_the @noun_radishes .")
+    sentence2 = parser.parse("@det_a @adj_happy @noun_cook @verb_likes to @verb_eat .")
+    sentence3 = parser.parse("@wh_when @aux_does @det_the @noun_cook @verb_eat ?")
+    print res.main(sentence)
+    print res.main(sentence2)
+    print res.main(sentence3)

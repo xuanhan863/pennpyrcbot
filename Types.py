@@ -92,7 +92,7 @@ class Category:
                 return str(self)
         @staticmethod
 	def lineToCat(line,cat_lookup, word_lookup):
-                """Converts a string into a Category instance."""
+                """This is a factory function which Converts a string into a Category instance.  Arguments 2 and 3 should be functions to lookup categories and words."""
                 args=line.strip().split(" ") #break line into chunks
                 assert(len(args) <= 5) #no sophisticated error checking
                 c = Category(args[0]) #chunk 1                         

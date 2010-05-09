@@ -10,23 +10,21 @@ endpunc='.?!'
 default_resp="I don't know enough English to answer that yet."
 parse = parser.parser.parse
 respond = res.main
-blank='_none'
 
 def getResponse(feed):
-    if feed[0] == ">":
-        return mapleResponse(feed[1:])
-    if feed[-1] in endpunc and feed[-2] != " ":
-        feed = feed[:-1] + " " + feed[-1]  #add in space before last punc mark
-    elif feed[-1] not in endpunc:
-        feed = feed+" ."
-    if feed[0].isupper():
-        feed = feed[0].lower() + feed[1:] #make sure first word lower case
-
-#    try:
-    res=parse(pass1(feed[:-2])+feed[-2:])
-    return respond(res)
-#except Exception:
-#return default_resp
+    try:
+        if feed[0] == ">":
+            return mapleResponse(feed[1:])
+        if feed[-1] in endpunc and feed[-2] != " ":
+            feed = feed[:-1] + " " + feed[-1]  #add in space before last punc
+        elif feed[-1] not in endpunc:
+            feed = feed+" ."
+        if feed[0].isupper():
+            feed = feed[0].lower() + feed[1:] #make sure first word lower case
+        res=parse(pass1(feed[:-2])+feed[-2:])
+        return respond(res)
+    except Exception:
+        return default_resp
 
 def mapleResponse(str):
     """Used to pipe lines beginning with '>' to Maple.  Mainly just for fun.  Will not work if host machine does not have cli Maple available."""

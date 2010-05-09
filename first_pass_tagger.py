@@ -2,10 +2,10 @@
 import Global
 
 def pass1(str):
+    """This takes in a line of plaintext and tags each word with part of speech.  This is necessary so that the parser can use regex's on the word structure for its grammar."""
     ls = str.split(" ")
     for i in xrange(len(ls)):
         token = ls[i]
-        print "Token:",token
         tag = Global.lookup(token).parse_tag
         ls[i] = tag + token #writeback
     return " ".join(ls)
