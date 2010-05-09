@@ -8,7 +8,10 @@ def pass1(str):
         token = ls[i]
         tag=""
         if token != "to":
-            tag = Global.lookup(token).parse_tag
+            try:
+                tag = Global.lookup(token).parse_tag
+            except AttributeError:
+                print "Unknown word '%s', sorry."%(token,)
         ls[i] = tag + token #writeback
     return " ".join(ls)
 

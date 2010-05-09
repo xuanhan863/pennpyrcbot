@@ -100,8 +100,8 @@ class TestBot(SingleServerIRCBot):
 
 def main():
     import sys
-    if len(sys.argv) != 4:
-        print "Usage: testbot <server[:port]> <channel> <nickname>"
+    if len(sys.argv) != 3:
+        print "Usage: testbot <server[:port]> <channel>"
         sys.exit(1)
 
     s = sys.argv[1].split(":", 1)
@@ -115,7 +115,9 @@ def main():
     else:
         port = 6667
     channel = sys.argv[2]
-    nickname = sys.argv[3]
+    if channel[0] != "#":
+        channel = "#" + channel
+    nickname = "epichef"
 
     bot = TestBot(channel, nickname, server, port)
     bot.start()
