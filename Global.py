@@ -32,4 +32,7 @@ def lookup(str):
 		return words[str[:-2]]
 
 def get_cat(cat_name):
-	return cats[cat_name]
+	try:
+		return cats[cat_name]
+	except KeyError:
+		return None

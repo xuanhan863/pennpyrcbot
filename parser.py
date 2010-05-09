@@ -110,10 +110,15 @@ def p_question(p):
                 | WH AUX dp vprime
                 | WH COP dp predp'''
     if len(p) == 4: p[0] = Question(Agent(p[2]), Action(p[3]), p[3].predicate, "tf")
-    elif p[2].type == 'AUX': p[0] = Question(Agent(p[3]), Action(p[4]), p[4].predicate, p[1])
+    elif lookup(p[2]).POS == POS.aux: p[0] = Question(Agent(p[3]), Action(p[4]), p[4].predicate, p[1])
     else:
 #        first = Question(Agent(p[3]))
-        p[0] = Question(Agent(p[3]), Action(VPrime(VP(None, VNaught(lookup(p[2])), p[4])), p[4], p[1]))
+        vn = VNaught(lookup(p[2]))
+        vp = VP(None,vn)
+        vprime = VPrime(vp,p[4])
+        a = Action(vprime)
+        p[0] = Question(Agent(p[3]),a,p[4],p[1])
+        #p[0] = Question(Agent(p[3]), Action(VPrime(VP(None, VNaught(lookup(p[2])), p[4])), p[4], p[1]))
 
 def p_dp(p):
     '''dp : DET np
@@ -151,7 +156,7 @@ def p_predp(p):
     if len(p) == 3: p[0] = Predicate("infinitive", lookup(p[2]))
     else:
         try: 
-            if p[1].type == 'ADJ': p[0] = Predicate("linked", lookup(p[1]))
+            if lookup(p[1]).POS == POS.adj: p[0] = Predicate("linked", lookup(p[1]))
         except AttributeError: p[0] = Predicate("theme", p[1])
 
 def p_error(p): print "Syntax error at '%s'" % p.value 
@@ -161,8 +166,9 @@ def p_error(p): print "Syntax error at '%s'" % p.value
 #parser testing
 #--------------------
 parser = yacc.yacc(debug=True)
-if __name__ == "__main__":
-    sentence = parser.parse("@det_a @adj_happy @noun_cook @adv_rapidly @verb_sliced @det_the @noun_radishes .")
-    print res.main(sentence)
-
-
+sentence = parser.parse("@det_a @adj_happy @noun_cook @adv_rapidly @verb_sliced @det_the @noun_radishes .")
+sentence2 = parser.parse("@det_a @adj_happy @noun_cook @verb_likes to @verb_eat .")
+sentence3 = parser.parse("@wh_when @aux_does @det_the @noun_cook @verb_eat ?")
+print res.main(sentence)
+print res.main(sentence2)
+print res.main(sentence3)

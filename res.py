@@ -4,13 +4,16 @@ import re, random, epi, sys, Global
 from semantics import *
 
 def main(sentence):
-    alt = getAlt(sentence.predicate.core.val)
+    if sentence.predicate.core is not None:
+        alt = getAlt(sentence.predicate.core.val)
 #    print getResponse(sentence,alt)
     return getResponse(sentence,alt)
-    
+
 
 #creates a response for the input sentence
 def getResponse(sentence,alt):
+    if sentence.type is "question" and sentence.query is not None:
+        return getAnswer(sentence,alt,sentence.query)
     p = getProb(sentence.type)
     if p <= 30:
         return getComment(sentence,alt)
@@ -30,12 +33,13 @@ def getAlt(core):
     word = Global.lookup(core)
 
     cat = Global.get_cat(word.category())
-    acList = cat.getActions()
-    ret[0] = acList[random.randint(1,len(acList)-1)]
-    agList = cat.getAgents()
-    ret[1] = agList[random.randint(1,len(agList)-1)]
-    deList = cat.getDescs()
-    ret[2] = deList[random.randint(1,len(deList)-1)]
+    if cat is not None:
+        acList = cat.getActions()
+        ret[0] = acList[random.randint(1,len(acList)-1)].val
+        agList = cat.getAgents()
+        ret[1] = agList[random.randint(1,len(agList)-1)].val
+        deList = cat.getDescs()
+        ret[2] = deList[random.randint(1,len(deList)-1)].val
     return ret
 
 def getProb(type):
@@ -64,11 +68,17 @@ def getQuestion(sentence,alt):
     elif i == 7:
         return "Oh Wow, how do you " + sentence.action.core.val + " " + sentence.predicate.core.val + "?"
     elif i == 8:
-        return "Have you ever tried to " + alt[0] + " " + alt[1] + "? You might like that better."
+        if alt[0][0] != "@":
+            return "Have you ever tried to " + alt[0] + " " + alt[1] + "? You might like that better."
+        else:
+            return "You might like something else better."
     elif i == 9:
         return "I knew that already, how do you like to " + sentence.action.core.val + " your " + sentence.predicate.core.val + "?"
     elif i == 10:
-        return "Is the " + sentence.predicate.core.val + " also " + alt[2] + "?"
+        if alt[0][0] != "@":
+            return "Is the " + sentence.predicate.core.val + " also " + alt[2] + "?"
+        else:
+            return "What's another way to describe that?"
     elif i == 11:
         return "That's too specific. What else do you like to " + sentence.action.core.val + "?"
     elif i == 12:
@@ -84,14 +94,16 @@ def getComment(sentence,alt):
     elif i == 2:
         return "I don't " + sentence.action.core.val + " " + sentence.predicate.core.val + " very often."
     elif i == 3:
-        return "I prefer to " + alt[0] + " " + alt[1] + "."
+        if alt[0][0] != "@":
+            return "I prefer to " + alt[0] + " " + alt[1] + "."
+        else:
+            return "I prefer something else."
     elif i == 4:
         return "Tell me more."
     elif i == 5:
         return "You're losing my attention. We've been through who " + sentence.action.core.val + "s " + sentence.predicate.core.val + "."
     elif i == 6:
         pass
-
 
 def getSuggestion(sentence):
     i = random.randint(0,3)
@@ -105,9 +117,22 @@ def getSuggestion(sentence):
     elif i == 3:
         return "I like " + sentence.predicate.core.val + " too. This is my favorite recipe to go with it! " + epi.getFoodLink(sentence.predicate.core.val)
 
+def getAnswer(sentence,alt,query):
+    if query.lower() == "what":
+        return "I'm not sure what " + sentence.agent.det.val + " " + sentence.agent.core.val + " " + sentence.action.core.val + "."
+    elif query.lower() == "why":
+        return "Maybe " +sentence.agent.det.val + " " + sentence.agent.core.val + " just likes to do that."
+    elif query.lower() == "where":
+        return "I'm not sure... have you tried looking for " + sentence.agent.det.val + " " + sentence.agent.core.val + " everywhere?"
+    elif query.lower() == "when":
+        return "The last time I saw that happen was yesterday."
+    elif query.lower() == "who":
+        return "I think it was the chef wasn't it?"
+    elif query.lower() == "how":
+        return "I haven't see it for myself...try asking someone that did."
+
 def getLost(sentence,alt):
     return "Anyway, I gotta go, cya."
-
 
 if __name__ == "__main__":
     exit(main())
