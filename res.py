@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-import re, categorizer, random, epi, sys, Global
+import re, random, epi, sys, Global
 from semantics import *
 
 def main(sentence):
@@ -25,22 +25,18 @@ def getResponse(sentence,alt):
 #returns a list of common other things to talk about
 #[action, agent, descriptor]
 def getAlt(core):
-    catFile = open("cat.dat", "r")
     ret = ["@action", "@agent", "@des"]
     
     word = Global.lookup(core)
 
-    for line in catFile:
-        lineList = line.split(" ")
-        if word.cat == lineList[0]:
-            acList = lineList[2].split(":")
-            ret[0] = acList[random.randint(1,len(acList)-1)]
-            agList = lineList[3].split(":")
-            ret[1] = agList[random.randint(1,len(agList)-1)]
-            deList = lineList[4].split(":")
-            ret[2] = deList[random.randint(1,len(deList)-1)]
-            return ret
-    return None
+    cat = Global.get_cat(word.category())
+    acList = cat.getActions()
+    ret[0] = acList[random.randint(1,len(acList)-1)]
+    agList = cat.getAgents()
+    ret[1] = agList[random.randint(1,len(agList)-1)]
+    deList = cat.getDescs()
+    ret[2] = deList[random.randint(1,len(deList)-1)]
+    return ret
 
 def getProb(type):
     if type == "statement":

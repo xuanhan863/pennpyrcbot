@@ -11,7 +11,7 @@ Adv = defs.Adv
 Det = defs.Det
 
 words=defs.loadFile("masterwordtable.bin")
-#cats = defs.loadFile("cat.bin") for later
+cats = defs.loadFile("cat.bin") 
 def lookup(str):
 	"""Returns a Word object for the given string.  This is the interface that should be used to "lookup" a word in the bot's knowledge base."""
 	try:
@@ -30,3 +30,6 @@ def lookup(str):
 			return words[str[:-2]]
 	if str[-2:] == "ly":
 		return words[str[:-2]]
+
+def get_cat(cat_name):
+	return cats[cat_name]

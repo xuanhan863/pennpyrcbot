@@ -9,8 +9,8 @@ class Word:
                 self.val=str
 		self.cat=category
 	def category(self):
-		"""Guaranteed to return the Category object which this word is a member of."""
-		return category
+		"""Guaranteed to return the tag for the category which this word is a member of."""
+		return self.cat
 	def __str__(self):
 		return "%s(%s):%s"%(self.val,self.cat,self.__class__.__name__,)
 	def __repr__(self):
@@ -79,13 +79,13 @@ class Category:
                 self.commonDescs.append(newDesc)
         def getAgents(self):
                 """Gets a list of this category's common agents"""
-                return list(commonAgents) #clone that sh*t                  
+                return list(self.commonAgents) #clone that sh*t               
         def getActions(self):
                 """Gets a list of this category's common actions"""
-                return list(commonActions)
+                return list(self.commonActions)
         def getDescs(self):
                 """Gets a list of this category's common descriptors"""
-                return list(commonVerbs)
+                return list(self.commonDescs)
         def __str__(self):
                 return "Category: '%s' is subtype of '%s'.  Common actions %s, agents %s, descs %s."%(self.tag, self.parentCat, self.commonActions, self.commonAgents, self.commonDescs)
         def __repr__(self):

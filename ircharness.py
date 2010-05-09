@@ -1,80 +1,35 @@
 #!/usr/bin/python
-import naive_parser as parser
+import parser
+from first_pass_tagger import pass1
 import readline
 from thematic_roles import *
-import Global, responder
+import Global, res
 import os
 
 endpunc='.?!'
-
-do = parser.parse
-
+default_resp="I don't know enough English to answer that yet."
+parse = parser.parser.parse
+respond = res.main
 blank='_none'
+
 def getResponse(feed):
     if feed[0] == ">":
         return mapleResponse(feed[1:])
-    if feed[-1] in endpunc:
-        feed = feed[:-1] + " " + feed[-1]  #add in space before last punctuation
-    else:
+    if feed[-1] in endpunc and feed[-2] != " ":
+        feed = feed[:-1] + " " + feed[-1]  #add in space before last punc mark
+    elif feed[-1] not in endpunc:
         feed = feed+" ."
     if feed[0].isupper():
         feed = feed[0].lower() + feed[1:] #make sure first word lower case
 
-    if feed is not None:
-        try:
-            res=do(feed)
-        except Exception:
-            return "I don't know enough English to answer that yet."
-        cat = "null"
-        theme_cor=blank
-        try:
-            verbInd=feed.index(res['action'].core.val)
-            end = feed[len(res['action'].core.val):]
-            for word in end.split(" "):
-                try:
-                    cattry=Global.lookup(word)
-                    cat=cattry.cat
-                    theme_cor = word
-                    if cat !="null" and cat != "": #if we found one
-                        break
-                except Exception:
-                    pass
-        except KeyError:
-            pass#print "No Action"
-        toRes = "type:"+res['type']
-        theme =res['theme']
-        toRes+=" theme:%s@thm"%(cat,)
-        if theme.det != blank:
-            toRes+=":%s@det"%(theme.det,)
-        for desc in theme.descriptors:
-            toRes+=":%s@des"%(desc.val,)
-        toRes+=":%s@cor"%(theme_cor,)
-        toRes+=" agent"
-        agent=res['agent']
-        if agent.det != blank:
-            try:
-                toRes+=":%s@det"%(agent.det.val,)
-            except Exception:
-                toRes+=":%s@det"%(agent.det,)
-        for desc in agent.descriptors:
-            toRes+=":%s@des"%(desc.val,)
-        if agent.core != blank:
-            toRes+=":%s@cor"%(agent.core.val,)
-        try:
-            toRes+=" action"            
-            action = res['action']
-            for desc in action.descriptors:
-                toRes+=":%s@des"%(desc.val)
-            if action.core != blank:
-                toRes+=":%s@cor"%(action.core.val,)
-        except KeyError:
-                pass
-        try:
-            return responder.main(toRes,feed)
-        except Exception:
-            "I don't know enough English to answer that yet."
+#    try:
+    res=parse(pass1(feed[:-2])+feed[-2:])
+    return respond(res)
+#except Exception:
+#return default_resp
 
 def mapleResponse(str):
+    """Used to pipe lines beginning with '>' to Maple.  Mainly just for fun.  Will not work if host machine does not have cli Maple available."""
     tmp=open("mapleinputswap","w")
     tmp.write(str)
     tmp.close()
@@ -90,3 +45,7 @@ def mapleResponse(str):
     ret = ["I asked Mr. Maple, he says:"]
     ret.extend(ls,)
     return ret
+
+if __name__ == "__main__":
+    while True:
+        print getResponse(raw_input())

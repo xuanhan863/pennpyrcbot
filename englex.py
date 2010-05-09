@@ -85,6 +85,3 @@ def t_error(t):
 #    token = lexer.token()
 #    if not token: break
 #    print token.type, token.value
-
-          
-          

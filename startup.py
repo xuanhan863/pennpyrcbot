@@ -31,7 +31,6 @@ if outOfDate(wordtablefname,binWordLists):
     for file in binWordLists:
         ls = loadFile(file)
         for word in ls:
-#            print word
             allwords[word.val]=word
         del ls
     dest=open(wordtablefname,"wb")
@@ -41,13 +40,14 @@ if outOfDate(wordtablefname,binWordLists):
 else:
     allwords = loadFile(wordtablefname)  #we need this loaded for next step
 #########dict is built##########
-######now we build the category table#####
-cats={}
-source = open("cat.dat")
-#for line in source:
-#    c = Category.lineToCat(line, cats.__getitem__, allwords.__getitem__)
-#    cats[c.tag] = c  #built on line above.  now we insert
-#dest=open("cat.bin","rw")
-#cPickle.dump(cats,dest,protocol=2)
-#dest.close()   ##########for later#########
-#print "Just dumped the category table."
+###### now we build the category table#####
+if outOfDate("cat.bin", ["cat.dat"]):
+    cats={}
+    source = open("cat.dat")
+    for line in source:
+        c = Category.lineToCat(line, cats.__getitem__, allwords.__getitem__)
+        cats[c.tag] = c  #built on line above.  now we insert
+        dest=open("cat.bin","wb")
+        cPickle.dump(cats,dest,protocol=2)
+        dest.close()  
+    print "Just dumped the category table."

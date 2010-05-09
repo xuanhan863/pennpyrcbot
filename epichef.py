@@ -1,5 +1,4 @@
-#! /usr/bin/env python
-# Example program using ircbot.py.
+#! /usr/bin/python
 
 """A simple example bot.
 
@@ -46,13 +45,13 @@ class TestBot(SingleServerIRCBot):
         a = e.arguments()[0].split(":", 1)
         if len(a) > 1 and irc_lower(a[0]) == irc_lower(self.connection.get_nickname()):
             self.do_command(e, a[1].strip())
-        resp = getResponse(e.arguments()[0])
+        resp = getResponse(e.arguments()[0])  #take the message, get response
 #        c.notice(self.channel, getResponse(e.arguments()[0]))
-        if type(resp) == list:
+        if type(resp) == list:   #someitmes we get back a bunch of lines
             for x in resp:
                 c.notice(self.channel, x)
         else:
-            c.notice(self.channel, resp)
+            c.notice(self.channel, resp) #otherwise, a string
         return
 
     def on_dccmsg(self, c, e):

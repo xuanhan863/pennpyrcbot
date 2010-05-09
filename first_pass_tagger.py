@@ -5,6 +5,7 @@ def pass1(str):
     ls = str.split(" ")
     for i in xrange(len(ls)):
         token = ls[i]
+        print "Token:",token
         tag = Global.lookup(token).parse_tag
         ls[i] = tag + token #writeback
     return " ".join(ls)
