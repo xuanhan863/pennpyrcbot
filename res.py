@@ -49,7 +49,7 @@ def getProb(type):
         return random.randint(0,60)
 
 def getQuestion(sentence,alt):
-    i = random.randint(0,12)
+    i = random.randint(0,17)
 
     if i == 0: 
         return "I know you like " + sentence.predicate.core.val + ", but what else can you " + sentence.action.core.val + "?"
@@ -67,25 +67,25 @@ def getQuestion(sentence,alt):
         return "Can't it " + sentence.action.core.val + " something else?"
     elif i == 7:
         return "Oh Wow, how do you " + sentence.action.core.val + " " + sentence.predicate.core.val + "?"
-    elif i == 8:
+    elif i >=  8  and i <= 10:
         if alt[0][0] != "@":
             return "Have you ever tried to " + alt[0] + " " + alt[1] + "? You might like that better."
         else:
             return "You might like something else better."
-    elif i == 9:
+    elif i == 11:
         return "I knew that already, how do you like to " + sentence.action.core.val + " your " + sentence.predicate.core.val + "?"
-    elif i == 10:
+    elif i >= 12 and i <= 15:
         if alt[0][0] != "@":
             return "Is the " + sentence.predicate.core.val + " also " + alt[2] + "?"
         else:
             return "What's another way to describe that?"
-    elif i == 11:
+    elif i == 16:
         return "That's too specific. What else do you like to " + sentence.action.core.val + "?"
-    elif i == 12:
+    elif i == 17:
         return "I never knew that. Really?"
 
 def getComment(sentence,alt):
-    i = random.randint(0,5)
+    i = random.randint(0,8)
 
     if i == 0:
         return "I really don't understand why you like to " + sentence.action.core.val + " " + sentence.predicate.core.val + " so much."
@@ -93,16 +93,16 @@ def getComment(sentence,alt):
         return "I really don't know what to say about that."
     elif i == 2:
         return "I don't " + sentence.action.core.val + " " + sentence.predicate.core.val + " very often."
-    elif i == 3:
+    elif i >= 3 and i <= 6:
         if alt[0][0] != "@":
             return "I prefer to " + alt[0] + " " + alt[1] + "."
         else:
             return "I prefer something else."
-    elif i == 4:
+    elif i == 7:
         return "Tell me more."
-    elif i == 5:
+    elif i == 8:
         return "You're losing my attention. We've been through who " + sentence.action.core.val + "s " + sentence.predicate.core.val + "."
-    elif i == 6:
+    elif i == 9:
         pass
 
 def getSuggestion(sentence):
