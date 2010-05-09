@@ -1,3 +1,17 @@
+To run the irc version: ./epichef server_name channel_name
+To run a command line bot: ./ircharness.py
+
+There are many aspects to this project.  At the base level, a sentence is
+ passed to a parser, the output of which is passed to the response generator.
+ There is however a lot that goes on behind this process.
+
+First, the input sentence is put through a tagger.  This uses the information
+ schema to tag each word's type.  This then goes to a lexer/parser combo.
+
+After the parser returns its output, the responder start generating sentences.
+ It uses a variety of loose templates and fills them in with related
+ information from a relevant category or topic.
+
 The responder takes a Sentence Object as input and extracts portions of that to generate responses that try to sound natural. It handles questions and statements from the parser. If it is a question that isn't classified in the 5 W's or H, the responder will know not to answer with another question. There is also a specific set of responses tailored for questions that fall under the 5 W's and H category. Otherwise, if the user makes a statement to the bot, it will choose from all the possibilities it has. 
     That explains the 5 sections that the responder is segmented into. It was designed to either ask a question back (in two cases), give a comment, make a suggestion, or say goodbye. One of the more unique ones is making a suggestion. This will take a keyword in the sentence and grab a relevant recipe from the internet and suggest it to the user.
     A challenge that came with writing the responder was making the responses fit nicely with the input from the user with the limited amount of information we can extract from a sentence. It took our group a long while to come up with responses that fit a large portion of sentences that could be given. 
