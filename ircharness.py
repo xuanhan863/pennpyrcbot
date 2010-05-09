@@ -21,7 +21,10 @@ def getResponse(feed):
             feed = feed+" ."
         if feed[0].isupper():
             feed = feed[0].lower() + feed[1:] #make sure first word lower case
-        res=parse(pass1(feed[:-2])+feed[-2:])
+        first_res = pass1(feed[:-2])
+        if first_res == Global.errmsg:
+            return default_resp
+        res=parse(first_res+feed[-2:])
         return respond(res)
     except Exception:
         return default_resp

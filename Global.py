@@ -12,6 +12,7 @@ Det = defs.Det
 
 words=defs.loadFile("masterwordtable.bin")
 cats = defs.loadFile("cat.bin") 
+errmsg = "BADSTUFFHAPPENED"
 def lookup(str):
 	"""Returns a Word object for the given string.  This is the interface that should be used to "lookup" a word in the bot's knowledge base."""
 	#note, we lookup with some redundancy/allowance for form variation

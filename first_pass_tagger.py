@@ -12,6 +12,7 @@ def pass1(str):
                 tag = Global.lookup(token).parse_tag
             except AttributeError:
                 print "Unknown word '%s', sorry."%(token,)
+                return Global.errmsg
         ls[i] = tag + token #writeback
     return " ".join(ls)
 
