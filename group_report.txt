@@ -1,0 +1,83 @@
+Project Name: PyRCBot
+Group Members:
+  (1) Gianni Chen
+  (2) Jessica Ouyang
+  (3) Seth Shannin
+ 
+*1* Project Description
+  
+
+   (a) Describe the original goal(s) of your project.
+     Quoting from the initial proposal we made:
+       Guarantees:
+               -IRC network abilities.
+               -Functional Bot that will respond to a single user input
+within a certain domain of phrases/commands.
+       Proposed:
+               -Simulate holding a conversation to best of ability
+               -Attempt multiple conversations
+
+   (b) Describe the completed goal(s) of your project and the
+   incomplete ones.
+     We certainly met all of the goals we guaranteed.  
+     Although the bot can do some other interesting things, the range of its
+      ability is fairly limited.
+
+   (c) What was the most challenging part of the coding?
+      NLP is not a solved problem.  The project was much more an exploration
+       into the field than an exploration into python.  The hardest part
+       therefore was most likely coming up with a way to structure the 
+       main and auxiliary programs so that they were modular, useful, etc.
+
+*2* Programming
+   (a) What additional python code, e.g, pygame, wxpython, other
+   modules, did you use in your project?
+     We used the irclib module (http://python-irclib.sourceforge.net/) to deal
+      to manage the irc connections.
+     We also used the ply module (http://www.dabeaz.com/ply/) for the final
+      version of our parser.
+
+   (b) What python paradigms did you use in your code?
+      To quote from pep8, here are some big points we tried to follow:
+       "Namespaces are one honking great idea -- let's use more of those!"
+       "Simple is better than complex."
+       "Explicit is better than implict."
+
+       We tried to keep the code extremely modular.  There are many base
+        classes and types which are aliased in other files.
+       Related to this, we tried hard to keep verbose and large class and 
+        function definitions out of the main files to prevent cluttering.
+
+   (c) Is python a good programming language for the task you set
+   about completing?
+     Yes, although sometimes we really wanted for some type checking.
+
+*3* Personal
+   (a) Is your group satisfied with the final version of your code?
+     Yes.  However, there is so much more we would still like to do. 
+      Unfortunately, there simply isn't enough time.
+
+   (b) If you had more time, what would additions would you make?
+     Make it seem more natural.  Pass the Turing test.  All of the above
+
+   (c) Based on the final result, how do your rank it all a scale from
+   0 to 5, where 0 is horrible and 5 is super duper awesome?
+     4.67
+
+   (d) Would you be willing to release your code under GPL (v3) (or
+   any other license) and have it posted on the class website. If so,
+   please prepare your code prior to submission as described in the
+   release instructions (or for the license of your choice).
+     Already is.  See http://code.google.com/p/pennpyrcbot/
+
+*4* Presentation
+
+Please provide a (three-line) paragraph describing your project
+and include a screen shot in your submission to be posted on the class
+web-site:
+  This project was an exploration into NLP using Python.  Starting from scratch
+   we built a data management schema that promoted tge functionality demanded
+   by NLP.  We also implemented a couple hand-made parsers before yielding to
+   the utility provided by the ply module.  In addition, we created a basic
+   version of a responder, which can attempts to generate meaningful responses
+   based on tagged input from the parser.
