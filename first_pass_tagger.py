@@ -6,7 +6,9 @@ def pass1(str):
     ls = str.split(" ")
     for i in xrange(len(ls)):
         token = ls[i]
-        tag = Global.lookup(token).parse_tag
+        tag=""
+        if token != "to":
+            tag = Global.lookup(token).parse_tag
         ls[i] = tag + token #writeback
     return " ".join(ls)
 

@@ -12,7 +12,7 @@ parse = parser.parser.parse
 respond = res.main
 
 def getResponse(feed):
-    try:
+#    try:
         if feed[0] == ">":
             return mapleResponse(feed[1:])
         if feed[-1] in endpunc and feed[-2] != " ":
@@ -21,9 +21,10 @@ def getResponse(feed):
             feed = feed+" ."
         if feed[0].isupper():
             feed = feed[0].lower() + feed[1:] #make sure first word lower case
+	print feed
         res=parse(pass1(feed[:-2])+feed[-2:])
         return respond(res)
-    except Exception:
+ #   except Exception:
         return default_resp
 
 def mapleResponse(str):
